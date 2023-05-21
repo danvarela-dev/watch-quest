@@ -1,0 +1,31 @@
+<div class="main">
+  <div class="navigation-bar">
+    <div class="left">
+      <div class="search blue-bg">
+        <i class="ri-search-line"></i>
+        <input type="text" placeholder="Search" />
+      </div>
+    </div>
+    <div class="center blue-bg">
+      <div class="option" (click)="test()">
+        <i class="ri-home-2-line"></i>Home
+      </div>
+      <div class="option" routerLink="/cms/movies">
+        <i class="ri-film-line"></i>Movies
+      </div>
+      <div class="option"><i class="ri-tv-2-line"></i>Series</div>
+      <div class="option"><i class="ri-funds-fill"></i>Trending</div>
+      <div class="option"><i class="ri-open-arm-line"></i>Cast</div>
+    </div>
+    <div class="right blue-bg">
+      <div class="profile">
+        <i class="ri-user-fill"></i>
+        <span>Admin</span>
+        <i class="ri-arrow-drop-down-line"></i>
+      </div>
+    </div>
+  </div>
+  <div class="outlet">
+    <router-outlet></router-outlet>
+  </div>
+</div>

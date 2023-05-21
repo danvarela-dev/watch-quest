@@ -31,11 +31,18 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/styles/_colors.scss",
+              "node_modules/remixicon/fonts/remixicon.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles"
+              ]
+            }
           },
-          "configurations": {
+          "configurations": { 
             "production": {
               "budgets": [
                 {
@@ -106,6 +113,5 @@
         }
       }
     }
-  },
-  "defaultProject": "watch-quest"
+  }
 }
