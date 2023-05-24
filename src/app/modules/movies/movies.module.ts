@@ -7,10 +7,20 @@ import { MovieDetailsComponent } from './components/movie-details/movie-details.
 import { SharedModule } from '../shared/shared.module';
 import { MoviesService } from './services/movies/movies.service';
 import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import * as fromMovies from './store/movies.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { MoviesEffects } from './store/movies.effects';
 
 const components = [MoviesDashboardComponent, MovieDetailsComponent];
 const services = [MoviesService];
-const modules = [CommonModule, MoviesRoutingModule, SharedModule];
+const modules = [
+  CommonModule,
+  MoviesRoutingModule,
+  SharedModule,
+  StoreModule.forFeature(fromMovies.moviesFeatureKey, fromMovies.moviesReducer),
+  EffectsModule.forFeature([MoviesEffects]),
+];
 
 @NgModule({
   declarations: [...components],

@@ -1,13 +1,13 @@
-// import { ActionReducerMap } from '@ngrx/store';
-// import {
-//   AuthenticationState,
-//   authenticationReducer,
-// } from '../modules/authentication/store/authentication.reducer';
+import { ActionReducerMap } from '@ngrx/store';
+import {
+  MoviesState,
+  moviesReducer,
+} from '../modules/movies/store/movies.reducer';
 
-// export interface AppState {
-//   authentication: AuthenticationState;
-// }
+export interface AppState {
+  movies: MoviesState;
+}
 
-// export const reducers: ActionReducerMap<AppState> = {
-//   authentication: authenticationReducer,
-// };
+export const reducers: ActionReducerMap<AppState> = {
+  movies: moviesReducer,
+};
