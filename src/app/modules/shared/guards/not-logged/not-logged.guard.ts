@@ -8,7 +8,7 @@ import { AuthResponse } from 'src/app/modules/authentication/interfaces/auth-res
 import { AuthenticationService } from 'src/app/modules/authentication/services/authentication.service';
 
 @Injectable()
-export class LoggedGuard {
+export class NotLoggedGuard {
   constructor(private auth: AuthenticationService, private route: Router) {}
 
   canActivate(
@@ -17,20 +17,10 @@ export class LoggedGuard {
   ): boolean {
     const authResponse: AuthResponse = this.auth.getToken();
     const sessionId = this.auth.getSessionId();
-
-    if (
-      state.url === '/auth/log-in' &&
-      authResponse.requestToken &&
-      sessionId
-    ) {
-      this.route.navigate(['/cms/movies']);
-      return false;
-    }
-
-    if (authResponse.requestToken && sessionId) {
+    if (!authResponse.requestToken || !sessionId) {
       return true;
     } else {
-      this.route.navigate(['/auth/login']);
+      this.route.navigate(['/cms/movies']);
       return false;
     }
   }

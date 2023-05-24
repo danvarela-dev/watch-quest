@@ -1,0 +1,30 @@
+<div
+  class="card"
+  [ngStyle]="{
+    height: card.dimensions.height,
+    width: card.dimensions.width,
+    'background-image': 'url(' + url + ')'
+  }"
+>
+  <div class="top">
+    <div class="router"></div>
+    <div class="buttons">
+      <i class="ri-play-list-add-fill"></i>
+      <i class="ri-heart-line"></i>
+      <i class="ri-share-line"></i>
+      <i class="ri-more-2-fill"></i>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="rating-chip">
+      <i *ngFor="let rating of ratingArray" class="ri-star-line"></i>
+    </div>
+
+    <div class="title">
+      {{ card.title | uppercase }}
+
+      <i class="ri-play-fill"></i>
+    </div>
+  </div>
+</div>

@@ -4,7 +4,8 @@ import { AuthenticationService } from './services/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { AuthenticationRoutingModule } from './authentication-routing.module';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { EffectsModule } from '@ngrx/effects';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [LoginComponent],

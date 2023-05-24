@@ -42,7 +42,7 @@
               ]
             }
           },
-          "configurations": { 
+          "configurations": {
             "production": {
               "budgets": [
                 {
@@ -113,5 +113,10 @@
         }
       }
     }
+  },
+  "cli": {
+    "schematicCollections": [
+      "@ngrx/schematics"
+    ]
   }
 }

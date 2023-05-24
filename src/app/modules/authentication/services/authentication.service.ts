@@ -6,15 +6,36 @@ import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class AuthenticationService {
+  isLoggedIn = false;
+
   constructor(private http: HttpClient) {}
 
   requestToken(): Observable<AuthResponse> {
     return this.http.get<AuthResponse>(
-      `${environment.tmdbApiHost}/authentication/token/new?redirect_to=localhost:4200`
+      `${environment.tmdbApiHost}/authentication/token/new?redirect_to=${environment.host}`
     );
   }
 
-  // requestGuestSession():Observable<any>{
-  //   return this.http.get<any>
-  // }
+  createSession(): Observable<any> {
+    return this.http.post(
+      `${environment.tmdbApiHost}/authentication/session/new`,
+      { request_token: this.getToken().requestToken }
+    );
+  }
+
+  saveToken(auth: AuthResponse): void {
+    localStorage.setItem('auth', JSON.stringify(auth));
+  }
+
+  getToken(): AuthResponse {
+    return JSON.parse(localStorage.getItem('auth') ?? '');
+  }
+
+  saveSessionId(sessionId: string): void {
+    sessionStorage.setItem('sessionId', sessionId);
+  }
+
+  getSessionId(): string {
+    return sessionStorage.getItem('sessionId') ?? '';
+  }
 }

@@ -42,6 +42,10 @@
       border-radius: 12px;
       color: white;
       background-color: map.get($blues, 0);
+
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 }

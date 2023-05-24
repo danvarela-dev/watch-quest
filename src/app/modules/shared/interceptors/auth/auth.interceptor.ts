@@ -22,7 +22,6 @@ export class AuthInterceptor implements HttpInterceptor {
         `Bearer ${environment.tmbdApiKey}`
       ),
     });
-    console.log(clonedRequest);
 
     return next.handle(clonedRequest);
   }

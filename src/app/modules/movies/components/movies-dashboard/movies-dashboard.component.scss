@@ -1,0 +1,15 @@
+.movies {
+  padding: 16px;
+
+  .title {
+    font-size: 36px;
+    font-weight: 500;
+  }
+
+  .list {
+    display: flex;
+    gap: 8px;
+    overflow-x: scroll;
+  }
+
+}

@@ -6,12 +6,4 @@ import { AuthenticationService } from 'src/app/modules/authentication/services/a
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.scss'],
 })
-export class MainLayoutComponent {
-  constructor(private auth: AuthenticationService) {}
-
-  test(): void {
-    this.auth.requestToken().subscribe((response) => {
-      console.log(response);
-    });
-  }
-}
+export class MainLayoutComponent {}
