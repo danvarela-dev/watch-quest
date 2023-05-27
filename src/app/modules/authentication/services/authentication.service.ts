@@ -32,10 +32,10 @@ export class AuthenticationService {
   }
 
   saveSessionId(sessionId: string): void {
-    sessionStorage.setItem('session_id', sessionId);
+    localStorage.setItem('session_id', sessionId);
   }
 
   getSessionId(): string {
-    return sessionStorage.getItem('session_id') ?? '{}';
+    return localStorage.getItem('session_id') ?? '{}';
   }
 }

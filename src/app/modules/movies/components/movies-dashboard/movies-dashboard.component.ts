@@ -1,9 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MoviesState } from '../../store/movies.reducer';
-import { MemoizedSelector, Store, select } from '@ngrx/store';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable, map, take } from 'rxjs';
+import { FavoriteRequest } from 'src/app/modules/shared/interfaces/favorite.interface';
+import { WatchlistRequest } from 'src/app/modules/shared/interfaces/watchlist.interface';
+import { AppState } from 'src/app/store/app.store';
+import { MovieDetails } from '../../interfaces/movies.interfaces';
 import { MoviesActions } from '../../store/movies.actions';
-import { Observable, map, of, take, tap } from 'rxjs';
-import { Movie, MovieDetails } from '../../interfaces/movies.interfaces';
 import {
   selectNowPlayingCurrentPage,
   selectNowPlayingMovies,
@@ -14,15 +17,6 @@ import {
   selectUpcomingCurrentPage,
   selectUpcomingMovies,
 } from '../../store/movies.selectors';
-import {
-  AccountState,
-  accountReducer,
-} from 'src/app/modules/shared/store/account.reducer';
-import { AppState } from 'src/app/store/app.store';
-import { AccountActions } from 'src/app/modules/shared/store/account.actions';
-import { FavoriteRequest } from 'src/app/modules/shared/interfaces/favorite.interface';
-import { WatchlistRequest } from 'src/app/modules/shared/interfaces/watchlist.interface';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movies-dashboard',
