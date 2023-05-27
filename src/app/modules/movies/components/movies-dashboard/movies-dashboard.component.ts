@@ -68,6 +68,7 @@ export class MoviesDashboardComponent implements OnInit {
 
   openMovieDetails(id: number, category: string): void {
     this.store.dispatch(MoviesActions.loadMovieDetails({ id, category }));
+    this.store.dispatch(MoviesActions.loadMovieProviders({ id }));
     this.router.navigate(['/cms/movies', category, id]);
   }
 

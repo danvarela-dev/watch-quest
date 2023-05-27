@@ -10,6 +10,7 @@ import {
   MovieDetails,
   MoviesResponse,
 } from '../../interfaces/movies.interfaces';
+import { ProviderResponse } from 'src/app/modules/shared/interfaces/provider.interface';
 
 @Injectable()
 export class MoviesService {
@@ -82,6 +83,12 @@ export class MoviesService {
   getMovieDetails(id: number): Observable<MovieDetails> {
     return this.http.get<MovieDetails>(
       `${environment.tmdbApiHost}/movie/${id}?append_to_response=videos,credits`
+    );
+  }
+
+  getProviders(id: number): Observable<ProviderResponse> {
+    return this.http.get<ProviderResponse>(
+      `${environment.tmdbApiHost}/movie/${id}/watch/providers`
     );
   }
 }

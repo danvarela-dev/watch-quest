@@ -47,7 +47,10 @@
         <ng-template #img>
           <img
             class="profile-pic"
-            [src]="account.avatar.tmdb.avatar_path"
+            [src]="
+              'https://image.tmdb.org/t/p/original' +
+                account.avatar.tmdb.avatar_path || ''
+            "
             alt="profile-pic"
           />
         </ng-template>

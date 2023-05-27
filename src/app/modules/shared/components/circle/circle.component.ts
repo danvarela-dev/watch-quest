@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-circle',
@@ -8,4 +8,5 @@ import { Component, Input } from '@angular/core';
 export class CircleComponent {
   @Input() value = '';
   @Input() color = '#c22525';
+  @Input() image = '';
 }

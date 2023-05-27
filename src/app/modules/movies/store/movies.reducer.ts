@@ -1,12 +1,7 @@
-import { createFeature, createReducer, on } from '@ngrx/store';
-import { MoviesActions } from './movies.actions';
 import { EntityState, Update, createEntityAdapter } from '@ngrx/entity';
-import {
-  Movie,
-  MovieDetails,
-  MoviesResponse,
-  PaginatedMovie,
-} from '../interfaces/movies.interfaces';
+import { createFeature, createReducer, on } from '@ngrx/store';
+import { Movie, MovieDetails } from '../interfaces/movies.interfaces';
+import { MoviesActions } from './movies.actions';
 
 export const moviesFeatureKey = 'movies';
 
@@ -349,6 +344,54 @@ export const moviesReducer = createReducer(
         default:
           return state;
       }
+    }
+  ),
+  on(
+    MoviesActions.loadMovieProvidersSuccess,
+    (state, { data: { providers } }) => {
+      return {
+        ...state,
+        nowPlaying: {
+          ...state.nowPlaying,
+          movies: moviesAdapter.upsertOne(
+            {
+              ...state.nowPlaying.movies.entities[providers.id],
+              providers: providers.results.US?.buy,
+            } as MovieDetails,
+            state.nowPlaying.movies
+          ),
+        },
+        popular: {
+          ...state.popular,
+          movies: moviesAdapter.upsertOne(
+            {
+              ...state.popular.movies.entities[providers.id],
+              providers: providers.results.US?.buy,
+            } as MovieDetails,
+            state.popular.movies
+          ),
+        },
+        topRated: {
+          ...state.topRated,
+          movies: moviesAdapter.upsertOne(
+            {
+              ...state.topRated.movies.entities[providers.id],
+              providers: providers.results.US?.buy,
+            } as MovieDetails,
+            state.topRated.movies
+          ),
+        },
+        upcoming: {
+          ...state.upcoming,
+          movies: moviesAdapter.upsertOne(
+            {
+              ...state.upcoming.movies.entities[providers.id],
+              providers: providers.results.US?.buy,
+            } as MovieDetails,
+            state.upcoming.movies
+          ),
+        },
+      };
     }
   )
 );

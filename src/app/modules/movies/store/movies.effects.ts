@@ -185,6 +185,21 @@ export class MoviesEffects {
     );
   });
 
+  loadMovieProviders$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(MoviesActions.loadMovieProviders),
+      mergeMap(({ id }) => {
+        return this.moviesService.getProviders(id).pipe(
+          map((providers) => {
+            return MoviesActions.loadMovieProvidersSuccess({
+              data: { providers },
+            });
+          })
+        );
+      })
+    );
+  });
+
   constructor(
     private actions$: Actions,
     private moviesService: MoviesService,

@@ -12,6 +12,7 @@ import { AccountService } from './services/account/account.service';
 import { AccountEffects } from './store/account.effects';
 import * as fromAccount from './store/account.reducer';
 import { NotLoggedGuard } from './guards/not-logged/not-logged.guard';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 const interceptors = [
   { provide: HTTP_INTERCEPTORS, useClass: TrafficInterceptor, multi: true },
@@ -28,6 +29,14 @@ const modules = [
     fromAccount.accountReducer
   ),
   EffectsModule.forFeature([AccountEffects]),
+  NgCircleProgressModule.forRoot({
+    radius: 100,
+    outerStrokeWidth: 10,
+    innerStrokeWidth: 6,
+    outerStrokeColor: '#78C000',
+    innerStrokeColor: '#C7E596',
+    animationDuration: 300,
+  }),
 ];
 
 @NgModule({

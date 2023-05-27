@@ -1,9 +1,11 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, Subject, finalize, skip, takeUntil, tap } from 'rxjs';
+import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
+import { FavoriteRequest } from 'src/app/modules/shared/interfaces/favorite.interface';
+import { WatchlistRequest } from 'src/app/modules/shared/interfaces/watchlist.interface';
 import { AppState } from 'src/app/store/app.store';
-import { Movie, MovieDetails } from '../../interfaces/movies.interfaces';
+import { MovieDetails } from '../../interfaces/movies.interfaces';
 import { MoviesActions } from '../../store/movies.actions';
 import { selectMovieByID } from '../../store/movies.selectors';
 
@@ -45,6 +47,11 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
               ...this.categoryIdPair$.getValue(),
             })
           );
+          this.store.dispatch(
+            MoviesActions.loadMovieProviders({
+              id: this.categoryIdPair$.getValue().id,
+            })
+          );
         }
         this.movie$.next(movie);
       });
@@ -55,5 +62,35 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
     this.categoryIdPair$.complete();
     this.movie$.complete();
+  }
+
+  rateMovie(rating: { rating: number; id: number }): void {
+    this.store.dispatch(
+      MoviesActions.rateMovie({ rating: rating.rating, id: rating.id })
+    );
+  }
+
+  addToWatchlist(watchlistRequest: WatchlistRequest): void {
+    this.store.dispatch(
+      MoviesActions.addToWatchlist({ data: { request: watchlistRequest } })
+    );
+
+    if (!watchlistRequest.watchlist) {
+      this.store.dispatch(
+        MoviesActions.removeFromWatchlist({ id: watchlistRequest.media_id })
+      );
+    }
+  }
+
+  addFavorite(favoriteRequest: FavoriteRequest): void {
+    this.store.dispatch(
+      MoviesActions.addFavorite({ data: { request: favoriteRequest } })
+    );
+
+    if (!favoriteRequest.favorite) {
+      this.store.dispatch(
+        MoviesActions.removeFavorite({ id: favoriteRequest.media_id })
+      );
+    }
   }
 }

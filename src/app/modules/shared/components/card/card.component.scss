@@ -2,16 +2,32 @@
 @import 'colors.scss';
 
 .card-wrapper {
-  &.details {
-    display: flex;
-    justify-content: space-between;
-    width: 90vw;
-    height: 250%;
-    padding: 38px;
+  width: 100%;
+  height: 100%;
 
-    .bottom {
-      .title {
-        pointer-events: none;
+  &.details {
+    .card {
+      display: flex;
+      justify-content: space-between;
+      width: 90vw;
+      height: 160%;
+      padding: 24px;
+
+      .bottom {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        .title {
+          pointer-events: none;
+          font-size: 22px;
+          margin-top: 16px;
+        }
+
+        .rating-chip {
+          margin-left: 4px;
+        }
       }
     }
   }
@@ -29,7 +45,7 @@
 
     .top {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
 
       .buttons {
         display: flex;
@@ -87,29 +103,37 @@
       display: flex;
       flex-direction: column;
 
-      .rating-chip {
-        display: flex;
-        justify-content: center;
-        padding: 2px 8px;
-        border-radius: 18px;
-        width: 100px;
-        height: 24px;
-        backdrop-filter: blur(5px);
+      .left {
+        p {
+          font-weight: normal;
+          font-size: 16px;
+          text-shadow: 1px 1px 0px #000000;
+        }
 
-        i {
-          font-size: 22px;
-          width: 18px;
-          height: 18px;
-          text-shadow: 2px 2px 0px #000000;
-          padding: 0 2px;
+        .rating-chip {
+          display: flex;
+          justify-content: center;
+          padding: 2px 8px;
+          border-radius: 18px;
+          width: 100px;
+          height: 24px;
+          backdrop-filter: blur(5px);
 
-          &.ri-star-fill,
-          &.ri-star-half-line {
-            color: $gold;
-          }
+          i {
+            font-size: 22px;
+            width: 18px;
+            height: 18px;
+            text-shadow: 2px 2px 0px #000000;
+            padding: 0 2px;
 
-          &:hover {
-            cursor: pointer;
+            &.ri-star-fill,
+            &.ri-star-half-line {
+              color: $gold;
+            }
+
+            &:hover {
+              cursor: pointer;
+            }
           }
         }
       }
@@ -126,7 +150,8 @@
 
         &:hover {
           cursor: pointer;
-          color: #78a2e0;
+          color: map.get($blues, 4);
+          transition: ease-in-out 0.2s;
         }
 
         i {

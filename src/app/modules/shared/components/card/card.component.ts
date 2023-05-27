@@ -2,9 +2,9 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
-  OnDestroy,
 } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
 import { MovieDetails } from 'src/app/modules/movies/interfaces/movies.interfaces';
@@ -77,6 +77,7 @@ export class CardComponent implements OnInit, OnDestroy {
   }
 
   selectMovie(): void {
+    if (!this.isThumbnail) return;
     this.onMovieSelect.emit(this.movie$.value?.id);
   }
 

@@ -7,6 +7,7 @@ import {
   MoviesResponse,
 } from '../interfaces/movies.interfaces';
 import { Response } from '../../shared/interfaces/response.interface';
+import { ProviderResponse } from '../../shared/interfaces/provider.interface';
 
 export const MoviesActions = createActionGroup({
   source: 'Movies',
@@ -39,6 +40,10 @@ export const MoviesActions = createActionGroup({
     'Load Movie Details': props<{ id: number; category: string }>(),
     'Load Movie Details Success': props<{
       data: { movie: MovieDetails; category: string };
+    }>(),
+    'Load Movie Providers': props<{ id: number }>(),
+    'Load Movie Providers Success': props<{
+      data: { providers: ProviderResponse };
     }>(),
   },
 });

@@ -1,3 +1,5 @@
+import { Provider } from '../../shared/interfaces/provider.interface';
+
 export interface MoviesResponse {
   dates?: Dates;
   page: number;
@@ -29,6 +31,7 @@ export interface Movie {
   is_favorite?: boolean;
   is_watchlist?: boolean;
   rating?: number;
+  providers?: Provider[];
 }
 
 export interface PaginatedMovie extends Movie {

@@ -12,6 +12,7 @@ import { MainLayoutModule } from './modules/main-layout/main-layout.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { reducers } from './store/app.store';
 import { environment } from 'src/environments/environment';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 const components = [AppComponent];
 const modules = [
