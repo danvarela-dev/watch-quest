@@ -96,7 +96,7 @@ export class MoviesEffects {
     );
   });
 
-  addTowatchlist$ = createEffect(() => {
+  addToWatchlist$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(MoviesActions.addToWatchlist),
       mergeMap(({ data: { request } }) => {

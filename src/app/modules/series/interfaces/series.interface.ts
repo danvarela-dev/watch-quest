@@ -5,7 +5,7 @@ export interface SeriesResponse {
   total_results: number;
 }
 
-export interface Series {
+export interface Series extends SeriesDetails {
   backdrop_path: string;
   first_air_date: string;
   genre_ids: number[];
@@ -21,7 +21,7 @@ export interface Series {
   vote_count: number;
 }
 
-export interface SeriesDetails extends Series {
+export interface SeriesDetails {
   adult: boolean;
   backdrop_path: string;
   created_by: CreatedBy[];

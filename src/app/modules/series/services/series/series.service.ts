@@ -1,18 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { FavoriteRequest } from 'src/app/modules/shared/interfaces/favorite.interface';
+import { Response } from 'src/app/modules/shared/interfaces/response.interface';
+import { WatchlistRequest } from 'src/app/modules/shared/interfaces/watchlist.interface';
 import { environment } from 'src/environments/environment';
 import {
   SeriesDetails,
   SeriesResponse,
 } from '../../interfaces/series.interface';
-import { Observable } from 'rxjs';
-import { FavoriteRequest } from 'src/app/modules/shared/interfaces/favorite.interface';
 
 @Injectable()
 export class SeriesService {
   constructor(private http: HttpClient) {}
 
-  getAiringToday(page = 1): Observable<SeriesResponse> {
+  seriesService(page = 1): Observable<SeriesResponse> {
     return this.http.get<SeriesResponse>(
       `${environment.tmdbApiHost}/tv/airing_today?page=${page}`
     );
@@ -33,6 +35,12 @@ export class SeriesService {
   getTopRated(page = 1): Observable<SeriesResponse> {
     return this.http.get<SeriesResponse>(
       `${environment.tmdbApiHost}/tv/top_rated?page=${page}`
+    );
+  }
+
+  getUpcoming(page = 1): Observable<SeriesResponse> {
+    return this.http.get<SeriesResponse>(
+      `${environment.tmdbApiHost}/tv/upcoming?page=${page}`
     );
   }
 
@@ -64,7 +72,7 @@ export class SeriesService {
     );
   }
 
-  addToWatchlist(watchlistRequest: FavoriteRequest): Observable<Response> {
+  addToWatchlist(watchlistRequest: WatchlistRequest): Observable<Response> {
     return this.http.post<Response>(
       `${environment.tmdbApiHost}/account/account_id/watchlist`,
       watchlistRequest
