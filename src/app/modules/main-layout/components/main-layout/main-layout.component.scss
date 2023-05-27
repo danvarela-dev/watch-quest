@@ -8,7 +8,6 @@
 
 .main {
   line-height: 24px;
-  height: 54px;
   color: white;
 
   .navigation-bar {
@@ -43,7 +42,7 @@
         color: white;
         border: none;
         background-color: transparent;
-        font-family: 'Avenir Next LT Pro', sans-serif;
+        font-size: 16px;
 
         &:focus,
         &:focus {
@@ -52,6 +51,7 @@
 
         &::placeholder {
           color: white;
+          font-weight: 600;
         }
       }
     }
@@ -59,19 +59,27 @@
     .center {
       display: flex;
       align-items: center;
-      justify-content: space-around;
+      justify-content: center;
       gap: 8px;
-      width: 100%;
+      width: auto;
+      padding: 0 32px;
 
       .option {
         display: flex;
         justify-content: center;
         gap: 8px;
         padding: 6px 24px;
+        width: 100px;
         border-radius: 24px;
         user-select: none;
+        font-weight: 600;
 
-        &:hover {
+        &.active-route {
+          background-color: white;
+          color: map.get($blues, 1);
+        }
+
+        &:not(.active-route):hover {
           background-color: map.get($blues, 2);
           cursor: pointer;
         }
@@ -87,14 +95,47 @@
       display: flex;
       justify-content: center;
       padding: 0 12px;
-      width: 10%;
+      width: 15%;
 
       .profile {
         display: flex;
+        width: 100%;
         align-items: center;
         justify-content: center;
         gap: 24px;
         height: 100%;
+
+        span {
+          width: 100%;
+        }
+
+        .ri-user-fill,
+        img {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 32px;
+          height: 32px;
+        }
+
+        img {
+          border-radius: 50%;
+        }
+
+        .ri-arrow-drop-down-line {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 32px;
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+
+          &:hover {
+            cursor: pointer;
+            background-color: map.get($blues, 2);
+          }
+        }
       }
     }
   }

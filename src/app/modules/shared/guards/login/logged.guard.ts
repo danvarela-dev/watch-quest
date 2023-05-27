@@ -20,14 +20,14 @@ export class LoggedGuard {
 
     if (
       state.url === '/auth/log-in' &&
-      authResponse.requestToken &&
+      authResponse.request_token &&
       sessionId
     ) {
       this.route.navigate(['/cms/movies']);
       return false;
     }
 
-    if (authResponse.requestToken && sessionId) {
+    if (authResponse.request_token && sessionId) {
       return true;
     } else {
       this.route.navigate(['/auth/login']);

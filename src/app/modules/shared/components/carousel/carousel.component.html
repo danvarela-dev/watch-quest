@@ -1,0 +1,17 @@
+<div class="carousel">
+  <i class="ri-arrow-drop-left-line" (click)="previousSlide()"></i>
+
+  <div class="slides" *ngIf="paginatedSlides">
+    <div [@slideAnimation]="animationState">
+      <app-card
+        *ngFor="let slide of paginatedSlides[currentPage]"
+        [movie]="convertToBehaviorSubject(slide)"
+        (onAddFavorite)="addFavorite($event)"
+        (onRate)="rateMovie($event)"
+        (onAddToWatchlist)="addToWatchlist($event)"
+        (onMovieSelect)="selectMovie($event)"
+      ></app-card>
+    </div>
+  </div>
+  <i class="ri-arrow-drop-right-line" (click)="nextSlide()"></i>
+</div>

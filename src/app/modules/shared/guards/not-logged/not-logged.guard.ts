@@ -17,7 +17,7 @@ export class NotLoggedGuard {
   ): boolean {
     const authResponse: AuthResponse = this.auth.getToken();
     const sessionId = this.auth.getSessionId();
-    if (!authResponse.requestToken || !sessionId) {
+    if (!authResponse.request_token || !sessionId) {
       return true;
     } else {
       this.route.navigate(['/cms/movies']);

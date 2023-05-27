@@ -7,23 +7,51 @@
       </div>
     </div>
     <div class="center blue-bg">
-      <div class="option" routerLink="/cms/home">
-        <i class="ri-home-2-line"></i>Home
-      </div>
-      <div class="option" routerLink="/cms/movies">
+      <div
+        class="option"
+        routerLink="/cms/movies"
+        routerLinkActive="active-route"
+      >
         <i class="ri-film-line"></i>Movies
       </div>
-      <div class="option" routerLink="/cms/series">
+      <div
+        class="option"
+        routerLink="/cms/series"
+        routerLinkActive="active-route"
+      >
         <i class="ri-tv-2-line"></i>Series
       </div>
-      <div class="option" routerLink="/cms/watchlist">
-        <i class="ri-list-indefinite"></i>Watchlist
+      <div
+        class="option"
+        routerLink="/cms/favorites"
+        routerLinkActive="active-route"
+      >
+        <i class="ri-heart-line"></i>Favorites
+      </div>
+      <div
+        class="option"
+        routerLink="/cms/watchlist"
+        routerLinkActive="active-route"
+      >
+        <i class="ri-bookmark-line"></i>Watchlist
       </div>
     </div>
     <div class="right blue-bg">
-      <div class="profile">
-        <i class="ri-user-fill"></i>
-        <span>Admin</span>
+      <div class="profile" *ngIf="account$ | async as account">
+        <ng-container
+          *ngIf="account.avatar.tmdb.avatar_path !== ''; then icon; else img"
+        ></ng-container>
+        <ng-template #icon class="profile-pic">
+          <i class="ri-user-fill"></i>
+        </ng-template>
+        <ng-template #img>
+          <img
+            class="profile-pic"
+            [src]="account.avatar.tmdb.avatar_path"
+            alt="profile-pic"
+          />
+        </ng-template>
+        <span>{{ account.name ? account.name : account.username }}</span>
         <i class="ri-arrow-drop-down-line"></i>
       </div>
     </div>

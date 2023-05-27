@@ -1,30 +1,59 @@
 <div
-  class="card"
-  [ngStyle]="{
-    height: card.dimensions.height,
-    width: card.dimensions.width,
-    'background-image': 'url(' + url + ')'
-  }"
+  class="card-wrapper"
+  [ngClass]="{'details': !isThumbnail,}"
+  *ngIf="getMovieObservable() | async as movie"
 >
-  <div class="top">
-    <div class="router"></div>
-    <div class="buttons">
-      <i class="ri-play-list-add-fill"></i>
-      <i class="ri-heart-line"></i>
-      <i class="ri-share-line"></i>
-      <i class="ri-more-2-fill"></i>
+  <div
+    class="card"
+    [ngStyle]="{
+      'background-image': url
+    }"
+  >
+    <div class="top">
+      <div class="router"></div>
+      <div class="buttons">
+        <div class="left"></div>
+        <div class="right">
+          <i
+            [ngClass]="{
+              'ri-bookmark-line': !movie.is_watchlist,
+              'ri-bookmark-fill': movie.is_watchlist
+            }"
+            (click)="addToWatchlist(movie.is_watchlist ?? false)"
+          ></i>
+          <i
+            [ngClass]="{
+              'ri-heart-line': !movie.is_favorite,
+              'ri-heart-fill': movie.is_favorite
+            }"
+            (click)="addFavorite(movie.is_favorite ?? false)"
+          ></i>
+          <a [href]="tmbdBaseUrl + movie.id" target="_blank"
+            ><i class="ri-external-link-line"></i
+          ></a>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div class="bottom">
-    <div class="rating-chip">
-      <i *ngFor="let rating of ratingArray" class="ri-star-line"></i>
-    </div>
+    <div class="bottom">
+      <div class="rating-chip">
+        <div
+          class="star"
+          *ngFor="let rating of ratingArray; let i = index"
+          (mouseenter)="onHoverRating(i + 1)"
+          (mouseleave)="setRating()"
+          (click)="onClickRating(i + 1)"
+        >
+          <i *ngIf="rating === 'fullstar'" class="ri-star-fill"></i>
+          <i *ngIf="rating === 'emptystar'" class="ri-star-line"></i>
+        </div>
+      </div>
 
-    <div class="title">
-      {{ card.title | uppercase }}
-
-      <i class="ri-play-fill"></i>
+      <div class="title" (click)="selectMovie()">
+        {{ movie.title | uppercase }} -
+        {{ movie.release_date | date : "yyyy" }}
+        <i *ngIf="movie?.video" class="ri-play-fill"></i>
+      </div>
     </div>
   </div>
 </div>

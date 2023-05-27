@@ -9,7 +9,7 @@ const routes: Routes = [
     component: MoviesDashboardComponent,
   },
   {
-    path: 'details/:id',
+    path: ':category/:id',
     component: MovieDetailsComponent,
   },
 ];

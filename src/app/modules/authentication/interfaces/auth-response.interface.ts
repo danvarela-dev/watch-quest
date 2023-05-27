@@ -1,5 +1,5 @@
 export interface AuthResponse {
   success: boolean;
-  expiresAt: string;
-  requestToken: string;
+  expires_at: string;
+  request_token: string;
 }

@@ -4,6 +4,22 @@
 body {
   background-color: map.get($blues, 0);
   font-family: 'Avenir Next LT Pro', sans-serif;
-  padding: 0;
   margin: 0;
+  height: 100vh;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: map.get($blues, 2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: map.get($blues, 3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #88dd88;
 }

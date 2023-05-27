@@ -1,8 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MoviesResponse } from '../../interfaces/movies.interfaces';
-import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { FavoriteRequest } from 'src/app/modules/shared/interfaces/favorite.interface';
+import { Response } from 'src/app/modules/shared/interfaces/response.interface';
+import { WatchlistRequest } from 'src/app/modules/shared/interfaces/watchlist.interface';
+import { environment } from 'src/environments/environment';
+import {
+  Movie,
+  MovieDetails,
+  MoviesResponse,
+} from '../../interfaces/movies.interfaces';
 
 @Injectable()
 export class MoviesService {
@@ -10,31 +17,71 @@ export class MoviesService {
 
   getNowPlaying(page = 1): Observable<MoviesResponse> {
     return this.http.get<MoviesResponse>(
-      `${environment.tmdbApiHost}/movie/now_playing`,
-      { params: { page } }
+      `${environment.tmdbApiHost}/movie/now_playing?page=${page}`
     );
   }
 
   getPopular(page = 1): Observable<MoviesResponse> {
     return this.http.get<MoviesResponse>(
-      `${environment.tmdbApiHost}/movie/popular`,
-      {
-        params: { page },
-      }
+      `${environment.tmdbApiHost}/movie/popular?page=${page}`
     );
   }
 
   getTopRated(page = 1): Observable<MoviesResponse> {
     return this.http.get<MoviesResponse>(
-      `${environment.tmdbApiHost}/movie/top_rated`,
-      { params: { page } }
+      `${environment.tmdbApiHost}/movie/top_rated?page=${page}`
     );
   }
 
   getUpcoming(page = 1): Observable<MoviesResponse> {
     return this.http.get<MoviesResponse>(
-      `${environment.tmdbApiHost}/movie/upcoming`,
-      { params: { page } }
+      `${environment.tmdbApiHost}/movie/upcoming?page=${page}`
+    );
+  }
+
+  rateMovie(movieId: number, rating: number): Observable<Response> {
+    return this.http.post<Response>(
+      `${environment.tmdbApiHost}/movie/${movieId}/rating`,
+      {
+        value: rating,
+      }
+    );
+  }
+  getRatedMovies(): Observable<MoviesResponse> {
+    return this.http.get<MoviesResponse>(
+      `${environment.tmdbApiHost}/account/account_id/rated/movies`
+    );
+  }
+
+  addFavorite(favoriteRequest: FavoriteRequest): Observable<Response> {
+    return this.http.post<Response>(
+      `${environment.tmdbApiHost}/account/account_id/favorite`,
+      favoriteRequest
+    );
+  }
+
+  getFavoriteMovies(): Observable<MoviesResponse> {
+    return this.http.get<MoviesResponse>(
+      `${environment.tmdbApiHost}/account/account_id/favorite/movies`
+    );
+  }
+
+  addToWatchlist(watchListRequest: WatchlistRequest): Observable<Response> {
+    return this.http.post<Response>(
+      `${environment.tmdbApiHost}/account/account_id/watchlist`,
+      watchListRequest
+    );
+  }
+
+  getWatchlistMovies(): Observable<MoviesResponse> {
+    return this.http.get<MoviesResponse>(
+      `${environment.tmdbApiHost}/account/account_id/watchlist/movies`
+    );
+  }
+
+  getMovieDetails(id: number): Observable<MovieDetails> {
+    return this.http.get<MovieDetails>(
+      `${environment.tmdbApiHost}/movie/${id}?append_to_response=videos,credits`
     );
   }
 }

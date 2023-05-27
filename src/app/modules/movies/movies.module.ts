@@ -1,16 +1,14 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { MoviesRoutingModule } from './movies-routing.module';
-import { MoviesDashboardComponent } from './components/movies-dashboard/movies-dashboard.component';
-import { MovieDetailsComponent } from './components/movie-details/movie-details.component';
-import { SharedModule } from '../shared/shared.module';
-import { MoviesService } from './services/movies/movies.service';
-import { HttpClientModule } from '@angular/common/http';
-import { StoreModule } from '@ngrx/store';
-import * as fromMovies from './store/movies.reducer';
+import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { SharedModule } from '../shared/shared.module';
+import { MovieDetailsComponent } from './components/movie-details/movie-details.component';
+import { MoviesDashboardComponent } from './components/movies-dashboard/movies-dashboard.component';
+import { MoviesRoutingModule } from './movies-routing.module';
+import { MoviesService } from './services/movies/movies.service';
 import { MoviesEffects } from './store/movies.effects';
+import * as fromMovies from './store/movies.reducer';
 
 const components = [MoviesDashboardComponent, MovieDetailsComponent];
 const services = [MoviesService];

@@ -33,7 +33,8 @@
             "styles": [
               "src/styles.scss",
               "src/styles/_colors.scss",
-              "node_modules/remixicon/fonts/remixicon.css"
+              "node_modules/remixicon/fonts/remixicon.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [],
             "stylePreprocessorOptions": {

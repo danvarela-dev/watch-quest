@@ -19,7 +19,7 @@ export class AuthenticationService {
   createSession(): Observable<any> {
     return this.http.post(
       `${environment.tmdbApiHost}/authentication/session/new`,
-      { request_token: this.getToken().requestToken }
+      { request_token: this.getToken().request_token }
     );
   }
 
@@ -28,14 +28,14 @@ export class AuthenticationService {
   }
 
   getToken(): AuthResponse {
-    return JSON.parse(localStorage.getItem('auth') ?? '');
+    return JSON.parse(localStorage.getItem('auth') ?? '{}');
   }
 
   saveSessionId(sessionId: string): void {
-    sessionStorage.setItem('sessionId', sessionId);
+    sessionStorage.setItem('session_id', sessionId);
   }
 
   getSessionId(): string {
-    return sessionStorage.getItem('sessionId') ?? '';
+    return sessionStorage.getItem('session_id') ?? '{}';
   }
 }

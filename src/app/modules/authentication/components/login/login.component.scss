@@ -5,9 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  padding: 0;
-  background-color: map.get($blues, 0);
+  height: 100%;
 
   .banner {
     display: flex;
@@ -30,10 +28,11 @@
     flex-direction: column;
     gap: 12px;
     width: 40%;
-    height: 100vh;
     align-items: center;
     justify-content: center;
     background-color: map.get($blues, 1);
+    height: 100%;
+    
 
     button {
       padding: 12px 20px;

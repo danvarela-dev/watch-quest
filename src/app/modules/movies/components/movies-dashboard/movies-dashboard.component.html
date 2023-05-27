@@ -1,8 +1,69 @@
 <div class="movies">
+  <div class="popular">
+    <div class="title">Popular</div>
+    <div class="list">
+      <app-carousel
+        [slidesPagePair]="{
+          currentSlidePage: currentPopularPage,
+          slides: popular$
+        }"
+        (onAddFavorite)="addFavorite($event)"
+        (onAddToWatchlist)="addToWatchlist($event)"
+        (getNewSlides)="getNextPage('popular', $event)"
+        (onRate)="rateMovie($event)"
+        (onMovieSelect)="openMovieDetails($event, 'popular')"
+      ></app-carousel>
+    </div>
+  </div>
+
   <div class="now-playing">
     <div class="title">Now Playing</div>
     <div class="list">
-      <app-card></app-card>
+      <app-carousel
+        [slidesPagePair]="{
+          currentSlidePage: currentNowPlayingPage,
+          slides: nowPlaying$
+        }"
+        (onAddFavorite)="addFavorite($event)"
+        (onAddToWatchlist)="addToWatchlist($event)"
+        (getNewSlides)="getNextPage('nowPlaying', $event)"
+        (onRate)="rateMovie($event)"
+        (onMovieSelect)="openMovieDetails($event, 'nowPlaying')"
+      ></app-carousel>
+    </div>
+  </div>
+
+  <div class="top-rated">
+    <div class="title">Top Rated</div>
+    <div class="list">
+      <app-carousel
+        [slidesPagePair]="{
+          currentSlidePage: currentTopRatedPage,
+          slides: topRated$
+        }"
+        (onAddFavorite)="addFavorite($event)"
+        (onAddToWatchlist)="addToWatchlist($event)"
+        (getNewSlides)="getNextPage('topRated', $event)"
+        (onRate)="rateMovie($event)"
+        (onMovieSelect)="openMovieDetails($event, 'topRated')"
+      ></app-carousel>
+    </div>
+  </div>
+
+  <div class="upcoming">
+    <div class="title">Upcoming</div>
+    <div class="list">
+      <app-carousel
+        [slidesPagePair]="{
+          currentSlidePage: currentUpcomingPage,
+          slides: upcoming$
+        }"
+        (onAddFavorite)="addFavorite($event)"
+        (onAddToWatchlist)="addToWatchlist($event)"
+        (getNewSlides)="getNextPage('upcoming', $event)"
+        (onRate)="rateMovie($event)"
+        (onMovieSelect)="openMovieDetails($event, 'upcoming')"
+      ></app-carousel>
     </div>
   </div>
 </div>

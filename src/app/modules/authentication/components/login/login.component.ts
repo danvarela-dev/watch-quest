@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.auth.createSession().subscribe((session) => {
       if (session.success) {
-        this.auth.saveSessionId(session.sessionId);
+        this.auth.saveSessionId(session.session_id);
         this.route.navigate(['/cms/movies']);
       }
     });
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   openTMBDLoginPage(auth: AuthResponse): void {
     if (auth.success) {
-      window.location.href = `https://www.themoviedb.org/authenticate/${auth.requestToken}?redirect_to=${environment.host}`;
+      window.location.href = `https://www.themoviedb.org/authenticate/${auth.request_token}?redirect_to=${environment.host}`;
     }
   }
 }
