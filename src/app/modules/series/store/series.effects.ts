@@ -7,7 +7,6 @@ import { AppState } from 'src/app/store/app.store';
 import { Response } from '../../shared/interfaces/response.interface';
 import { SeriesService } from '../services/series/series.service';
 import { SeriesActions } from './series.actions';
-import { MovieDetails } from '../../movies/interfaces/movies.interfaces';
 
 @Injectable()
 export class SeriesEffects {
@@ -134,8 +133,72 @@ export class SeriesEffects {
       })
     );
   });
-  
 
+  rateSerie$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SeriesActions.rateMovie),
+      mergeMap(({ rating, id }) => {
+        return this.seriesService.rateSeries(id, rating).pipe(
+          map(() => {
+            return SeriesActions.rateMovieSuccess({
+              id,
+              rating,
+            });
+          })
+        );
+      })
+    );
+  });
+
+  loadRatedSeries$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SeriesActions.loadRatedSeries),
+      mergeMap(() => {
+        return this.seriesService.getRatedSeries().pipe(
+          map((data) => {
+            return SeriesActions.loadRatedSeriesSuccess({
+              data: { series: data.results },
+            });
+          })
+        );
+      })
+    );
+  });
+
+  loadSeriesDetails$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SeriesActions.loadSerieDetails),
+      mergeMap(({ id, category }) => {
+        return this.seriesService.getSeriesDetails(id).pipe(
+          finalize(() => {
+            this.store.dispatch(SeriesActions.loadFavoriteSeries());
+            this.store.dispatch(SeriesActions.loadWatchlistSeries());
+            this.store.dispatch(SeriesActions.loadRatedSeries());
+          }),
+          map((serie) => {
+            return SeriesActions.loadSerieDetailsSuccess({
+              data: { serie, category },
+            });
+          })
+        );
+      })
+    );
+  });
+
+  loadSerieProviders$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SeriesActions.loadSerieProviders),
+      mergeMap(({ id }) => {
+        return this.seriesService.getSeriesProviders(id).pipe(
+          map((providers) => {
+            return SeriesActions.loadSerieProvidersSuccess({
+              data: { providers },
+            });
+          })
+        );
+      })
+    );
+  });
   constructor(
     private actions$: Actions,
     private seriesService: SeriesService,

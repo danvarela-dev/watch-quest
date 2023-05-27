@@ -43,7 +43,7 @@ export const SeriesActions = createActionGroup({
     }>(),
     'Load Serie Providers': props<{ id: number }>(),
     'Load Serie Providers Success': props<{
-      data: { serie: ProviderResponse };
+      data: { providers: ProviderResponse };
     }>(),
   },
 });

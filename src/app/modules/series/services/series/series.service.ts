@@ -9,6 +9,7 @@ import {
   SeriesDetails,
   SeriesResponse,
 } from '../../interfaces/series.interface';
+import { ProviderResponse } from 'src/app/modules/shared/interfaces/provider.interface';
 
 @Injectable()
 export class SeriesService {
@@ -87,5 +88,11 @@ export class SeriesService {
 
   getSeriesDetails(id: number): Observable<SeriesDetails> {
     return this.http.get<SeriesDetails>(`${environment.tmdbApiHost}/tv/${id}`);
+  }
+
+  getSeriesProviders(id: number): Observable<ProviderResponse> {
+    return this.http.get<ProviderResponse>(
+      `${environment.tmdbApiHost}/tv/${id}/watch/providers`
+    );
   }
 }
