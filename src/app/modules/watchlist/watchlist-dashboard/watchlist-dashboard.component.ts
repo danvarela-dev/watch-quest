@@ -31,8 +31,8 @@ export class WatchlistDashboardComponent implements OnInit {
     this.watchlistSeries$ = this.store.select(selectWatchlistSeries);
   }
 
-  openDetails(id: number, mediaType: string): void {
-    if (mediaType === 'movie') {
+  openDetails(id: number, mediaType: 'movies' | 'series'): void {
+    if (mediaType === 'movies') {
       this.store.dispatch(
         MoviesActions.loadMovieDetails({ id, category: 'popular' })
       );

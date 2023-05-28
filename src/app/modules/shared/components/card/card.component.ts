@@ -23,7 +23,7 @@ export class CardComponent implements OnInit, OnDestroy {
   @Input() isThumbnail = true;
   @Input() media$: BehaviorSubject<MovieDetails | SeriesDetails | undefined>;
   @Input() isQueryResult = false;
-  @Input() mediaType: 'movie' | 'serie' | '' = '';
+  @Input() mediaType: 'movie' | 'serie' | 'tv' | '' = '';
   @Output() afterViewInit = new EventEmitter<void>();
   @Output() onAddFavorite = new EventEmitter<FavoriteRequest>();
   @Output() onRate = new EventEmitter<{ rating: number; id: number }>();
@@ -47,7 +47,11 @@ export class CardComponent implements OnInit, OnDestroy {
       }
     });
 
-    if (this.router.url.includes('series') && !this.isThumbnail) {
+    if (
+      this.router.url.includes('series') &&
+      !this.isThumbnail &&
+      this.mediaType === ''
+    ) {
       this.mediaType = 'serie';
     } else {
       this.mediaType = 'movie';
@@ -85,7 +89,7 @@ export class CardComponent implements OnInit, OnDestroy {
     const favoriteRequest: FavoriteRequest = {
       favorite: !currentStatus,
       media_id: this.media$.value?.id || 0,
-      media_type: '',
+      media_type: this.mediaType === 'serie' ? 'tv' : this.mediaType,
     };
     this.onAddFavorite.emit(favoriteRequest);
   }
@@ -99,7 +103,7 @@ export class CardComponent implements OnInit, OnDestroy {
     const watchlistRequest: WatchlistRequest = {
       watchlist: !currentStatus,
       media_id: this.media$.value?.id || 0,
-      media_type: '',
+      media_type: this.mediaType === 'serie' ? 'tv' : this.mediaType,
     };
 
     this.onAddToWatchlist.emit(watchlistRequest);
