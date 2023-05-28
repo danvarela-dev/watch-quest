@@ -42,7 +42,11 @@ const environmentFileContent = `
     production: ${isProduction},
     tmbdApiKey: '${process.env.TMDB_API_KEY}',
     tmdbApiHost: 'https://api.themoviedb.org/3',
-    host: ${!isProduction ? "'http://localhost:4200'" : "'tbd'"},
+    host: ${
+      !isProduction
+        ? "'http://localhost:4200'"
+        : "'https://davaflo.github.io/watch-quest/'"
+    },
   };
   `;
 writeFileUsingFS(targetPath, environmentFileContent);
