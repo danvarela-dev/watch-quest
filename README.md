@@ -1,27 +1,58 @@
-# WatchQuest
+# Angular Movie/TV Series Application - WatchQuest
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.10.
+Welcome to the Angular Movie/TV Series Application! This application is built with Angular and utilizes the TMDB API to retrieve information about movies and TV series. It offers various functionalities such as rating, adding to favorites, adding to watchlists, and searching for your favorite movies and shows.
 
-## Development server
+- ### What you'll need to test the API
+  - #### An TMBD account since the authentication is handled through their website, when redirected you can either signup or use an existing account.
+  - #### To avoid issues with account creation I have created a test account for you.
+    - username: username-test
+    - password: username123
+  - If the provided account doesn't work can can try creating one with a disposable email, using services like https://temp-mail.org/en/
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Features :bulb:
 
-## Code scaffolding
+- **TMDB API Integration**: The application leverages the TMDB API to fetch comprehensive information about movies and TV series, including details, ratings, and more.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Rating System**: Users can rate movies and TV series based on their preferences, allowing them to provide feedback and contribute to the community.
 
-## Build
+- **Favorites**: You can add movies and TV series to your favorites list, making it easier to keep track of your preferred content.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- **Watchlists**: Create watchlists to curate a collection of movies and TV series that you intend to watch or save for later.
 
-## Running unit tests
+- **Search**: The application provides a search functionality, allowing you to find specific movies or TV series quickly and efficiently.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## NGRX Integration :gem:
 
-## Running end-to-end tests
+To ensure consistent information throughout the application, the NGRX library has been incorporated. NGRX provides a cleaner structure, facilitating state management, reducing data inconsistencies and consolidating different http respones into one entity. While NGRX can sometimes be considered overengineering, in this case, it is necessary to maintain data integrity across various components and screens.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Key Angular Features :notebook:
 
-## Further help
+The application leverages several key Angular features to enhance functionality and user experience:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- **Interceptors**: Interceptors are utilized to handle notifications based on HTTP responses. This ensures smooth communication with the TMDB API and provides users with real-time feedback.
+
+- **Session ID Handling**: The application appends the session ID to specific HTTP requests, enabling seamless interaction with the TMDB API's protected endpoints.
+
+- **Resolver**: A resolver has been implemented to prefetch essential information required for rendering specific components. This optimizes performance by retrieving data in advance, resulting in a smoother user experience.
+
+- **Route Guards**: The application utilizes route guards to protect certain routes and restrict access based on user authentication and authorization.
+
+## Modular Architecture :triangular_ruler:
+
+The application follows a modular architecture, dividing its components into separate modules. This approach offers several advantages, including improved management of NGRX and enhanced isolation of functionalities. Each module focuses on specific features, promoting maintainability and scalability.
+
+## Testing :microscope:
+
+While the application does not currently include testing, it is crucial to implement it for comprehensive quality assurance. Testing ensures the reliability and stability of the application, allowing for quick identification and resolution of potential issues.
+
+## Known Issues :beetle:
+
+Please note that there are some minor bugs related to the NGRX state within the application. However, these issues are actively being addressed, and future updates will rectify them to enhance the overall user experience.
+
+## TMDB API :bar_chart:
+
+The application heavily relies on the TMDB API (The Movie Database) to fetch movie and TV series data. The TMDB API provides a vast collection of information, including movie details, cast and crew information, user ratings, and more. To access the API, an account can be created on the TMDB website (https://www.themoviedb.org/) to obtain an API key.
+
+## Conclusion
+
+Thank you for choosing the Angular Movie/TV Series Application. This professional and feature-rich application brings you the latest information about movies and TV series, allowing you to rate, add to favorites, add to watchlists, and search effortlessly. With a modular architecture, NGRX integration, key Angular features, and route guards, this application guarantees a seamless user experience while ensuring data consistency and security. As future updates are released, we will continue to enhance
