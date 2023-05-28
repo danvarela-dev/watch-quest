@@ -2,7 +2,7 @@
 
 Welcome to the Angular Movie/TV Series Application! This application is built with Angular and utilizes the TMDB API to retrieve information about movies and TV series. It offers various functionalities such as rating, adding to favorites, adding to watchlists, and searching for your favorite movies and shows.
 
-- ### What you'll need to test the API
+- ### What you'll need to test the app
   - #### The website :link: - https://develop--majestic-selkie-153b60.netlify.app/
   - #### An TMBD account since the authentication is handled through their website, when redirected you can either signup or use an existing account.
   - #### To avoid issues with account creation I have created a test account for you.
