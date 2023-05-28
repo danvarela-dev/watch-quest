@@ -1,7 +1,7 @@
 <div class="details" *ngIf="movie$ | async as movie">
   <div class="header">
     <app-card
-      [movie]="movie$"
+      [media]="movie$"
       [isThumbnail]="false"
       (onAddFavorite)="addFavorite($event)"
       (onRate)="rateMovie($event)"
@@ -9,7 +9,7 @@
     ></app-card>
   </div>
   <div class="bottom">
-    <div class="providers">
+    <div class="providers" *ngIf="movie?.providers">
       <h2>Where to watch</h2>
       <div class="container-wrapper">
         <div class="container">
@@ -22,9 +22,15 @@
         </div>
       </div>
     </div>
-    <div class="cast" *ngIf="movie.credits">
+    <div
+      class="cast"
+      *ngIf="movie.credits?.cast && movie.credits.cast.length > 10"
+    >
       <h2>Main Cast</h2>
-      <div class="container-wrapper">
+      <div
+        class="container-wrapper"
+        [ngClass]="{ center: movie.credits.cast.length < 10 }"
+      >
         <div class="container">
           <div class="actor" *ngFor="let actor of movie.credits?.cast">
             <app-circle

@@ -32,7 +32,7 @@ export const moviesReducer = createReducer(
           nowPlaying: {
             currentPage: movies.page,
             movies: moviesAdapter.upsertMany(
-              movies.results,
+              movies.results.filter((movie) => movie !== null),
               state.nowPlaying.movies
             ),
           },
@@ -44,7 +44,7 @@ export const moviesReducer = createReducer(
           popular: {
             currentPage: movies.page,
             movies: moviesAdapter.upsertMany(
-              movies.results,
+              movies.results.filter((movie) => movie !== null),
               state.popular.movies
             ),
           },
@@ -55,7 +55,7 @@ export const moviesReducer = createReducer(
           topRated: {
             currentPage: movies.page,
             movies: moviesAdapter.upsertMany(
-              movies.results,
+              movies.results.filter((movie) => movie !== null),
               state.topRated.movies
             ),
           },
@@ -67,7 +67,7 @@ export const moviesReducer = createReducer(
           upcoming: {
             currentPage: movies.page,
             movies: moviesAdapter.upsertMany(
-              movies.results,
+              movies.results.filter((movie) => movie !== null),
               state.upcoming.movies
             ),
           },

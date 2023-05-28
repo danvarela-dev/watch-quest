@@ -18,12 +18,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(private route: Router, private auth: AuthenticationService) {}
 
   ngOnInit(): void {
-    this.auth.createSession().subscribe((session) => {
-      if (session.success) {
-        this.auth.saveSessionId(session.session_id);
-        this.route.navigate(['/cms/movies']);
-      }
-    });
+    
   }
 
   ngOnDestroy(): void {

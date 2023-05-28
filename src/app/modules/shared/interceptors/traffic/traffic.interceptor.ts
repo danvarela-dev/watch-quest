@@ -1,16 +1,17 @@
-import { Injectable } from '@angular/core';
 import {
-  HttpRequest,
-  HttpHandler,
   HttpEvent,
+  HttpHandler,
   HttpInterceptor,
-  HttpResponse,
   HttpParams,
+  HttpRequest,
+  HttpResponse,
 } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { AuthenticationService } from 'src/app/modules/authentication/services/authentication.service';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Observable, map } from 'rxjs';
+import { AuthenticationService } from 'src/app/modules/authentication/services/authentication.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class TrafficInterceptor implements HttpInterceptor {
@@ -23,6 +24,14 @@ export class TrafficInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
+    if (this.auth.getSessionId() === '{}') {
+      this.auth.createSession().subscribe((session) => {
+        if (session.success) {
+          this.auth.saveSessionId(session.session_id);
+        }
+      });
+    }
+
     const clonedRequest = request.clone({
       headers: request.headers.set(
         'Authorization',

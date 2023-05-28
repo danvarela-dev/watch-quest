@@ -12,7 +12,9 @@ export const selectNowPlayingMovies = createSelector(
     const { ids, entities } = state.nowPlaying.movies;
     return ids
       .map((id) => entities[id])
-      .filter((movie): movie is MovieDetails => movie !== undefined);
+      .filter(
+        (movie): movie is MovieDetails => movie !== undefined || movie !== null
+      );
   }
 );
 
@@ -22,7 +24,9 @@ export const selectPopularMovies = createSelector(
     const { ids, entities } = state.popular.movies;
     return ids
       .map((id) => entities[id])
-      .filter((movie): movie is MovieDetails => movie !== undefined);
+      .filter(
+        (movie): movie is MovieDetails => movie !== undefined || movie !== null
+      );
   }
 );
 
@@ -32,7 +36,9 @@ export const selectTopRatedMovies = createSelector(
     const { ids, entities } = state.topRated.movies;
     return ids
       .map((id) => entities[id])
-      .filter((movie): movie is MovieDetails => movie !== undefined);
+      .filter(
+        (movie): movie is MovieDetails => movie !== undefined || movie !== null
+      );
   }
 );
 
@@ -42,7 +48,9 @@ export const selectUpcomingMovies = createSelector(
     const { ids, entities } = state.upcoming.movies;
     return ids
       .map((id) => entities[id])
-      .filter((movie): movie is MovieDetails => movie !== undefined);
+      .filter(
+        (movie): movie is MovieDetails => movie !== undefined || movie !== null
+      );
   }
 );
 

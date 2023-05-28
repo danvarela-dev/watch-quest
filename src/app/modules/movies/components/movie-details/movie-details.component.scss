@@ -54,6 +54,10 @@
         display: flex;
         overflow-x: auto;
 
+        &.center {
+          justify-content: center;
+        }
+
         .container {
           display: flex;
           gap: 32px;

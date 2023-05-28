@@ -5,11 +5,12 @@
     <div [@slideAnimation]="animationState">
       <app-card
         *ngFor="let slide of paginatedSlides[currentPage]"
-        [movie]="convertToBehaviorSubject(slide)"
+        [media]="convertToBehaviorSubject(slide)"
+        [mediaType]="mediaType"
         (onAddFavorite)="addFavorite($event)"
-        (onRate)="rateMovie($event)"
+        (onRate)="rateMedia($event)"
         (onAddToWatchlist)="addToWatchlist($event)"
-        (onMovieSelect)="selectMovie($event)"
+        (onMediaSelect)="selectMedia($event)"
       ></app-card>
     </div>
   </div>

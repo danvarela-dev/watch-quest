@@ -6,8 +6,9 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, filter, takeUntil } from 'rxjs';
 import { MovieDetails } from 'src/app/modules/movies/interfaces/movies.interfaces';
+import { SeriesDetails } from 'src/app/modules/series/interfaces/series.interface';
 import { FavoriteRequest } from '../../interfaces/favorite.interface';
 import { WatchlistRequest } from '../../interfaces/watchlist.interface';
 
@@ -18,12 +19,15 @@ import { WatchlistRequest } from '../../interfaces/watchlist.interface';
 })
 export class CardComponent implements OnInit, OnDestroy {
   @Input() isThumbnail = true;
-  @Input('movie') movie$: BehaviorSubject<MovieDetails | undefined>;
+  @Input('media') media$: BehaviorSubject<
+    MovieDetails | SeriesDetails | undefined
+  >;
+  @Input() mediaType: 'movie' | 'serie' = 'movie';
   @Output() afterViewInit = new EventEmitter<void>();
   @Output() onAddFavorite = new EventEmitter<FavoriteRequest>();
   @Output() onRate = new EventEmitter<{ rating: number; id: number }>();
   @Output() onAddToWatchlist = new EventEmitter<WatchlistRequest>();
-  @Output() onMovieSelect = new EventEmitter<number>();
+  @Output() onMediaSelect = new EventEmitter<number>();
 
   ratingArray: string[] = [];
   url = '';
@@ -31,11 +35,11 @@ export class CardComponent implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();
 
   ngOnInit(): void {
-    this.movie$.pipe(takeUntil(this.unsubscribe$)).subscribe((movie) => {
-      if (movie) {
-        this.setRating(this.movie$.value?.rating);
+    this.media$.pipe(takeUntil(this.unsubscribe$)).subscribe((media) => {
+      if (media) {
+        this.setRating(this.media$.value?.rating);
         this.url = `url('${'https://image.tmdb.org/t/p/original'}${
-          movie.backdrop_path
+          media.backdrop_path ? media.backdrop_path : media.poster_path
         }')`;
       }
     });
@@ -46,8 +50,10 @@ export class CardComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  getMovieObservable(): Observable<MovieDetails> {
-    return this.movie$.asObservable() as Observable<MovieDetails>;
+  getMediaObservable(): Observable<MovieDetails | SeriesDetails> {
+    return this.media$.asObservable() as Observable<
+      MovieDetails | SeriesDetails
+    >;
   }
 
   generateStarArray(rating: number): string[] {
@@ -69,23 +75,22 @@ export class CardComponent implements OnInit, OnDestroy {
   addFavorite(currentStatus: boolean): void {
     const favoriteRequest: FavoriteRequest = {
       favorite: !currentStatus,
-      media_id: this.movie$.value?.id || 0,
-      media_type: 'movie',
+      media_id: this.media$.value?.id || 0,
+      media_type: this.mediaType === 'serie' ? 'tv' : 'movie',
     };
-
     this.onAddFavorite.emit(favoriteRequest);
   }
 
-  selectMovie(): void {
+  selectMedia(): void {
     if (!this.isThumbnail) return;
-    this.onMovieSelect.emit(this.movie$.value?.id);
+    this.onMediaSelect.emit(this.media$.value?.id);
   }
 
   addToWatchlist(currentStatus: boolean): void {
     const watchlistRequest: WatchlistRequest = {
       watchlist: !currentStatus,
-      media_id: this.movie$.value?.id || 0,
-      media_type: 'movie',
+      media_id: this.media$.value?.id || 0,
+      media_type: this.mediaType === 'serie' ? 'tv' : 'movie',
     };
 
     this.onAddToWatchlist.emit(watchlistRequest);
@@ -96,11 +101,45 @@ export class CardComponent implements OnInit, OnDestroy {
   }
 
   onClickRating(rating: number): void {
-    this.onRate.emit({ rating: rating, id: this.movie$.value?.id ?? 0 });
+    this.onRate.emit({ rating: rating, id: this.media$.value?.id ?? 0 });
     this.setRating(rating);
   }
 
-  setRating(rating = this.movie$.value?.rating || 0): void {
+  setRating(rating = this.media$.value?.rating || 0): void {
     this.ratingArray = this.generateStarArray(rating);
+  }
+
+  getMediaTitle(): string {
+    let title = '';
+    this.media$
+      .asObservable()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((media) => {
+        if (media) {
+          if ('title' in media) {
+            title = media.title;
+          } else {
+            title = media.name;
+          }
+        }
+      });
+    return title;
+  }
+
+  getMediaReleaseDate(): string {
+    let releaseDate = '';
+    this.media$
+      .asObservable()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((media) => {
+        if (media) {
+          if ('release_date' in media) {
+            releaseDate = media.release_date;
+          } else {
+            releaseDate = media.first_air_date;
+          }
+        }
+      });
+    return releaseDate;
   }
 }

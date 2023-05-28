@@ -1,13 +1,14 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
+import { Credits } from '../../movies/interfaces/movies.interfaces';
+import { FavoriteRequest } from '../../shared/interfaces/favorite.interface';
+import { ProviderResponse } from '../../shared/interfaces/provider.interface';
+import { Response } from '../../shared/interfaces/response.interface';
+import { WatchlistRequest } from '../../shared/interfaces/watchlist.interface';
 import {
   Series,
   SeriesDetails,
   SeriesResponse,
 } from '../interfaces/series.interface';
-import { FavoriteRequest } from '../../shared/interfaces/favorite.interface';
-import { WatchlistRequest } from '../../shared/interfaces/watchlist.interface';
-import { ProviderResponse } from '../../shared/interfaces/provider.interface';
-import { Response } from '../../shared/interfaces/response.interface';
 
 export const SeriesActions = createActionGroup({
   source: 'Series',
@@ -21,8 +22,8 @@ export const SeriesActions = createActionGroup({
     'Load Favorite Series Success': props<{
       data: { series: Series[] };
     }>(),
-    'Rate Movie': props<{ rating: number; id: number }>(),
-    'Rate Movie Success': props<{ rating: number; id: number }>(),
+    'Rate Serie': props<{ rating: number; id: number }>(),
+    'Rate Serie Success': props<{ rating: number; id: number }>(),
     'Load Rated Series': emptyProps(),
     'Load Rated Series Success': props<{ data: { series: SeriesDetails[] } }>(),
     'Add Favorite': props<{ data: { request: FavoriteRequest } }>(),
@@ -44,6 +45,10 @@ export const SeriesActions = createActionGroup({
     'Load Serie Providers': props<{ id: number }>(),
     'Load Serie Providers Success': props<{
       data: { providers: ProviderResponse };
+    }>(),
+    'Load Serie Cast': props<{ id: number }>(),
+    'Load Serie Cast Success': props<{
+      data: { id: number; credits: Credits };
     }>(),
   },
 });

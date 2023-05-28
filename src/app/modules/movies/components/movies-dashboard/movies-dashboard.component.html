@@ -7,11 +7,12 @@
           currentSlidePage: currentPopularPage,
           slides: popular$
         }"
+        [mediaType]="'movie'"
         (onAddFavorite)="addFavorite($event)"
         (onAddToWatchlist)="addToWatchlist($event)"
         (getNewSlides)="getNextPage('popular', $event)"
         (onRate)="rateMovie($event)"
-        (onMovieSelect)="openMovieDetails($event, 'popular')"
+        (onMediaSelect)="openMovieDetails($event, 'popular')"
       ></app-carousel>
     </div>
   </div>
@@ -24,11 +25,12 @@
           currentSlidePage: currentNowPlayingPage,
           slides: nowPlaying$
         }"
+        [mediaType]="'movie'"
         (onAddFavorite)="addFavorite($event)"
         (onAddToWatchlist)="addToWatchlist($event)"
         (getNewSlides)="getNextPage('nowPlaying', $event)"
         (onRate)="rateMovie($event)"
-        (onMovieSelect)="openMovieDetails($event, 'nowPlaying')"
+        (onMediaSelect)="openMovieDetails($event, 'nowPlaying')"
       ></app-carousel>
     </div>
   </div>
@@ -41,11 +43,12 @@
           currentSlidePage: currentTopRatedPage,
           slides: topRated$
         }"
+        [mediaType]="'movie'"
         (onAddFavorite)="addFavorite($event)"
         (onAddToWatchlist)="addToWatchlist($event)"
         (getNewSlides)="getNextPage('topRated', $event)"
         (onRate)="rateMovie($event)"
-        (onMovieSelect)="openMovieDetails($event, 'topRated')"
+        (onMediaSelect)="openMovieDetails($event, 'topRated')"
       ></app-carousel>
     </div>
   </div>
@@ -58,11 +61,12 @@
           currentSlidePage: currentUpcomingPage,
           slides: upcoming$
         }"
+        [mediaType]="'movie'"
         (onAddFavorite)="addFavorite($event)"
         (onAddToWatchlist)="addToWatchlist($event)"
         (getNewSlides)="getNextPage('upcoming', $event)"
         (onRate)="rateMovie($event)"
-        (onMovieSelect)="openMovieDetails($event, 'upcoming')"
+        (onMediaSelect)="openMovieDetails($event, 'upcoming')"
       ></app-carousel>
     </div>
   </div>

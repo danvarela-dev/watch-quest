@@ -90,18 +90,20 @@ export class MoviesDashboardComponent implements OnInit {
         return;
     }
 
-    this.store
-      .select(selector)
-      .pipe(
-        take(1),
-        map((page: number) => page + 1)
-      )
-      .subscribe((page) => {
-        this.store.dispatch(MoviesActions.loadMovies({ category, page }));
-        this.store.dispatch(MoviesActions.loadFavoriteMovies());
-        this.store.dispatch(MoviesActions.loadWatchlistMovies());
-        this.store.dispatch(MoviesActions.loadRatedMovies());
-      });
+    if (selector) {
+      this.store
+        .select(selector)
+        .pipe(
+          take(1),
+          map((page: number) => page + 1)
+        )
+        .subscribe((page) => {
+          this.store.dispatch(MoviesActions.loadMovies({ category, page }));
+          this.store.dispatch(MoviesActions.loadFavoriteMovies());
+          this.store.dispatch(MoviesActions.loadWatchlistMovies());
+          this.store.dispatch(MoviesActions.loadRatedMovies());
+        });
+    }
   }
 
   rateMovie(rating: { rating: number; id: number }): void {

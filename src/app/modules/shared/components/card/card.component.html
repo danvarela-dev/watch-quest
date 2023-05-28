@@ -1,7 +1,7 @@
 <div
   class="card-wrapper"
   [ngClass]="{'details': !isThumbnail,}"
-  *ngIf="getMovieObservable() | async as movie"
+  *ngIf="getMediaObservable() | async as media"
 >
   <div
     class="card"
@@ -15,19 +15,19 @@
         <div class="right">
           <i
             [ngClass]="{
-              'ri-bookmark-line': !movie.is_watchlist,
-              'ri-bookmark-fill': movie.is_watchlist
+              'ri-bookmark-line': !media.is_watchlist,
+              'ri-bookmark-fill': media.is_watchlist
             }"
-            (click)="addToWatchlist(movie.is_watchlist ?? false)"
+            (click)="addToWatchlist(media.is_watchlist ?? false)"
           ></i>
           <i
             [ngClass]="{
-              'ri-heart-line': !movie.is_favorite,
-              'ri-heart-fill': movie.is_favorite
+              'ri-heart-line': !media.is_favorite,
+              'ri-heart-fill': media.is_favorite
             }"
-            (click)="addFavorite(movie.is_favorite ?? false)"
+            (click)="addFavorite(media.is_favorite ?? false)"
           ></i>
-          <a [href]="tmbdBaseUrl + movie.id" target="_blank"
+          <a [href]="tmbdBaseUrl + media.id" target="_blank"
             ><i class="ri-external-link-line"></i
           ></a>
         </div>
@@ -49,22 +49,24 @@
           </div>
         </div>
 
-        <div class="title" (click)="selectMovie()">
+        <div class="title" (click)="selectMedia()">
           <div class="left">
-            {{ movie.title | uppercase }} -
-            {{ movie.release_date | date : "yyyy" }}
+            <span>
+              {{ getMediaTitle() | uppercase }} -
+              {{ getMediaReleaseDate() | date : "yyyy" }}
+            </span>
           </div>
         </div>
 
         <p *ngIf="!isThumbnail">
-          {{ movie.overview }}
+          {{ media.overview }}
         </p>
       </div>
 
       <circle-progress
         *ngIf="!isThumbnail"
         [style.pointer-events]="'none'"
-        [percent]="movie.vote_average * 10"
+        [percent]="media.vote_average * 10"
         [radius]="45"
         [animation]="true"
         [animationDuration]="300"

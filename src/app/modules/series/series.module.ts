@@ -8,10 +8,14 @@ import { SeriesDashboardComponent } from './components/series-dashboard/series-d
 import { SeriesDetailsComponent } from './components/series-details/series-details.component';
 import { SeriesService } from './services/series/series.service';
 import { HttpClientModule } from '@angular/common/http';
+import { SeriesRoutingModule } from './series.routing.module';
+import { SharedModule } from '../shared/shared.module';
 
 const modules = [
   CommonModule,
-  StoreModule.forFeature(fromSeries.seriesFeatureKey, fromSeries.reducer),
+  SeriesRoutingModule,
+  SharedModule,
+  StoreModule.forFeature(fromSeries.seriesFeatureKey, fromSeries.seriesReducer),
   EffectsModule.forFeature([SeriesEffects]),
   HttpClientModule,
 ];

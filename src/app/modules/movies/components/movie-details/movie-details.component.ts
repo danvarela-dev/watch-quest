@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
+import { BehaviorSubject, Subject, filter, takeUntil } from 'rxjs';
+import { SeriesDetails } from 'src/app/modules/series/interfaces/series.interface';
 import { FavoriteRequest } from 'src/app/modules/shared/interfaces/favorite.interface';
 import { WatchlistRequest } from 'src/app/modules/shared/interfaces/watchlist.interface';
 import { AppState } from 'src/app/store/app.store';
@@ -16,7 +17,9 @@ import { selectMovieByID } from '../../store/movies.selectors';
 })
 export class MovieDetailsComponent implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();
-  movie$ = new BehaviorSubject<MovieDetails | undefined>(undefined);
+  movie$ = new BehaviorSubject<MovieDetails | SeriesDetails | undefined>(
+    undefined
+  );
   categoryIdPair$ = new BehaviorSubject<{ id: number; category: string }>({
     id: 0,
     category: '',
@@ -35,11 +38,23 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
           id,
           category,
         });
+
+        this.store.dispatch(MoviesActions.loadMovieDetails({ id, category }));
+        this.store.dispatch(MoviesActions.loadMovieProviders({ id }));
       });
 
     this.store
       .select(selectMovieByID(this.categoryIdPair$.getValue().id))
       .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((movie) => {
+        this.movie$.next(movie);
+      });
+
+    this.movie$
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        filter((movie) => movie !== undefined)
+      )
       .subscribe((movie) => {
         if (!movie) {
           this.store.dispatch(
@@ -53,7 +68,6 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
             })
           );
         }
-        this.movie$.next(movie);
       });
   }
 

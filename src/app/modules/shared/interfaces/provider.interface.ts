@@ -9,6 +9,8 @@ export interface Results {
 
 export interface Us {
   link: string;
+  flatrate: Provider[];
+  free: Provider[];
   buy: Provider[];
 }
 

@@ -10,6 +10,10 @@ import {
   SeriesResponse,
 } from '../../interfaces/series.interface';
 import { ProviderResponse } from 'src/app/modules/shared/interfaces/provider.interface';
+import {
+  Cast,
+  Credits,
+} from 'src/app/modules/movies/interfaces/movies.interfaces';
 
 @Injectable()
 export class SeriesService {
@@ -39,9 +43,9 @@ export class SeriesService {
     );
   }
 
-  getUpcoming(page = 1): Observable<SeriesResponse> {
+  getAiringToday(page = 1): Observable<SeriesResponse> {
     return this.http.get<SeriesResponse>(
-      `${environment.tmdbApiHost}/tv/upcoming?page=${page}`
+      `${environment.tmdbApiHost}/tv/airing_today?page=${page}`
     );
   }
 
@@ -56,7 +60,7 @@ export class SeriesService {
 
   getRatedSeries(): Observable<SeriesResponse> {
     return this.http.get<SeriesResponse>(
-      `${environment.tmdbApiHost}/account/account_id/rated/series`
+      `${environment.tmdbApiHost}/account/account_id/rated/tv`
     );
   }
 
@@ -69,7 +73,7 @@ export class SeriesService {
 
   getFavoriteSeries(): Observable<SeriesResponse> {
     return this.http.get<SeriesResponse>(
-      `${environment.tmdbApiHost}/account/account_id/favorite/series`
+      `${environment.tmdbApiHost}/account/account_id/favorite/tv`
     );
   }
 
@@ -82,7 +86,7 @@ export class SeriesService {
 
   getWatchlistSeries(): Observable<SeriesResponse> {
     return this.http.get<SeriesResponse>(
-      `${environment.tmdbApiHost}/account/account_id/watchlist/series`
+      `${environment.tmdbApiHost}/account/account_id/watchlist/tv`
     );
   }
 
@@ -93,6 +97,12 @@ export class SeriesService {
   getSeriesProviders(id: number): Observable<ProviderResponse> {
     return this.http.get<ProviderResponse>(
       `${environment.tmdbApiHost}/tv/${id}/watch/providers`
+    );
+  }
+
+  getSerieCast(id: number): Observable<Credits> {
+    return this.http.get<Credits>(
+      `${environment.tmdbApiHost}/tv/${id}/credits`
     );
   }
 }

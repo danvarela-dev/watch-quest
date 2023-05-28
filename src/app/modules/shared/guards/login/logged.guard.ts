@@ -11,17 +11,14 @@ import { AuthenticationService } from 'src/app/modules/authentication/services/a
 export class LoggedGuard {
   constructor(private auth: AuthenticationService, private route: Router) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): boolean {
+  canActivate(state: RouterStateSnapshot): boolean {
     const authResponse: AuthResponse = this.auth.getToken();
     const sessionId = this.auth.getSessionId();
 
     if (
       state.url === '/auth/log-in' &&
       authResponse.request_token &&
-      sessionId
+      sessionId !== '{}'
     ) {
       this.route.navigate(['/cms/movies']);
       return false;

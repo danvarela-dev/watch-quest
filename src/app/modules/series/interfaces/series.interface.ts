@@ -1,11 +1,14 @@
+import { Credits } from '../../movies/interfaces/movies.interfaces';
+import { Provider } from '../../shared/interfaces/provider.interface';
+
 export interface SeriesResponse {
   page: number;
-  results: Series[];
+  results: SeriesDetails[];
   total_pages: number;
   total_results: number;
 }
 
-export interface Series extends SeriesDetails {
+export interface Series {
   backdrop_path: string;
   first_air_date: string;
   genre_ids: number[];
@@ -19,9 +22,14 @@ export interface Series extends SeriesDetails {
   poster_path: string;
   vote_average: number;
   vote_count: number;
+  rating?: number;
+  is_favorite?: boolean;
+  is_watchlist?: boolean;
+  providers?: Provider[];
+  credits: Credits;
 }
 
-export interface SeriesDetails {
+export interface SeriesDetails extends Series {
   adult: boolean;
   backdrop_path: string;
   created_by: CreatedBy[];

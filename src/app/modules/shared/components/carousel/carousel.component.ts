@@ -8,10 +8,8 @@ import {
   Output,
 } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, filter, takeUntil } from 'rxjs';
-import {
-  Movie,
-  MovieDetails,
-} from 'src/app/modules/movies/interfaces/movies.interfaces';
+import { MovieDetails } from 'src/app/modules/movies/interfaces/movies.interfaces';
+import { SeriesDetails } from 'src/app/modules/series/interfaces/series.interface';
 import { FavoriteRequest } from '../../interfaces/favorite.interface';
 import { WatchlistRequest } from '../../interfaces/watchlist.interface';
 
@@ -35,15 +33,16 @@ import { WatchlistRequest } from '../../interfaces/watchlist.interface';
 export class CarouselComponent implements OnInit, OnDestroy {
   @Input() slidesPagePair: {
     currentSlidePage: number;
-    slides: Observable<(MovieDetails | undefined)[]>;
+    slides: Observable<(MovieDetails | SeriesDetails | undefined)[]>;
   };
+  @Input() mediaType: 'movie' | 'serie' = 'movie';
   @Output() getNewSlides = new EventEmitter<number>();
   @Output() onAddFavorite = new EventEmitter<FavoriteRequest>();
   @Output() onAddToWatchlist = new EventEmitter<WatchlistRequest>();
   @Output() onRate = new EventEmitter<{ rating: number; id: number }>();
-  @Output() onMovieSelect = new EventEmitter<number>();
+  @Output() onMediaSelect = new EventEmitter<number>();
 
-  paginatedSlides: (MovieDetails | undefined)[][];
+  paginatedSlides: (MovieDetails | SeriesDetails | undefined)[][];
   animationState = 0;
 
   currentPage = 0;
@@ -66,19 +65,19 @@ export class CarouselComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  selectMovie(id: number): void {
-    this.onMovieSelect.emit(id);
+  selectMedia(id: number): void {
+    this.onMediaSelect.emit(id);
   }
 
   convertToBehaviorSubject(
-    movie: MovieDetails | undefined
-  ): BehaviorSubject<MovieDetails | undefined> {
-    return new BehaviorSubject<MovieDetails | undefined>(movie);
+    media: MovieDetails | SeriesDetails | undefined
+  ): BehaviorSubject<MovieDetails | SeriesDetails | undefined> {
+    return new BehaviorSubject<MovieDetails | SeriesDetails | undefined>(media);
   }
 
   paginateSlides(
-    slides: (MovieDetails | undefined)[]
-  ): (MovieDetails | undefined)[][] {
+    slides: (MovieDetails | SeriesDetails | undefined)[]
+  ): (MovieDetails | SeriesDetails | undefined)[][] {
     if (!this.slidesPagePair) return [[]];
 
     let result = [];
@@ -111,11 +110,11 @@ export class CarouselComponent implements OnInit, OnDestroy {
     this.onAddFavorite.emit(favoriteRequest);
   }
 
-  rateMovie($event: { rating: number; id: number }): void {
+  rateMedia($event: { rating: number; id: number }): void {
     this.onRate.emit($event);
   }
 
-  addToWatchlist(movie: WatchlistRequest): void {
-    this.onAddToWatchlist.emit(movie);
+  addToWatchlist(media: WatchlistRequest): void {
+    this.onAddToWatchlist.emit(media);
   }
 }

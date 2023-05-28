@@ -42,8 +42,8 @@ export class SeriesEffects {
                 })
               )
             );
-          case 'upcoming':
-            return this.seriesService.getUpcoming(page).pipe(
+          case 'airingToday':
+            return this.seriesService.getAiringToday(page).pipe(
               map((data) =>
                 SeriesActions.loadSeriesSuccess({
                   series: data,
@@ -136,11 +136,11 @@ export class SeriesEffects {
 
   rateSerie$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(SeriesActions.rateMovie),
+      ofType(SeriesActions.rateSerie),
       mergeMap(({ rating, id }) => {
         return this.seriesService.rateSeries(id, rating).pipe(
           map(() => {
-            return SeriesActions.rateMovieSuccess({
+            return SeriesActions.rateSerieSuccess({
               id,
               rating,
             });
@@ -185,12 +185,28 @@ export class SeriesEffects {
     );
   });
 
+  loadSeriesCast$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SeriesActions.loadSerieCast),
+      mergeMap(({ id }) => {
+        return this.seriesService.getSerieCast(id).pipe(
+          map((cast) => {
+            return SeriesActions.loadSerieCastSuccess({
+              data: { id, credits: cast },
+            });
+          })
+        );
+      })
+    );
+  });
+
   loadSerieProviders$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(SeriesActions.loadSerieProviders),
       mergeMap(({ id }) => {
         return this.seriesService.getSeriesProviders(id).pipe(
           map((providers) => {
+            console.log(providers);
             return SeriesActions.loadSerieProvidersSuccess({
               data: { providers },
             });
