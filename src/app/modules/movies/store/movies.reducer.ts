@@ -400,12 +400,6 @@ export const moviesReducer = createReducer(
   on(
     MoviesActions.loadMovieDetailsSuccess,
     (state, { data: { movie, category } }) => {
-      const changes: Update<Movie> = {
-        id: movie.id,
-        changes: {
-          ...movie,
-        },
-      };
       switch (category) {
         case 'nowPlaying':
           return {

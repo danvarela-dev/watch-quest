@@ -1,11 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthenticationService } from './services/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
-import { LoginComponent } from './components/login/login.component';
+import { NgModule } from '@angular/core';
 import { AuthenticationRoutingModule } from './authentication-routing.module';
-import { EffectsModule } from '@ngrx/effects';
-import { RouterModule } from '@angular/router';
+import { LoginComponent } from './components/login/login.component';
+import { AuthenticationService } from './services/authentication.service';
 
 @NgModule({
   declarations: [LoginComponent],

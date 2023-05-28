@@ -4,7 +4,7 @@ import { Account } from '../interfaces/account.interface';
 
 export const accountFeatureKey = 'account';
 
-export interface AccountState extends Account {}
+export type AccountState = Account
 
 export const initialState: AccountState = {
   avatar: {

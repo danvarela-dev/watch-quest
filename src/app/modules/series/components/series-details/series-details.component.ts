@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
@@ -15,7 +15,7 @@ import { FavoriteRequest } from 'src/app/modules/shared/interfaces/favorite.inte
   templateUrl: './series-details.component.html',
   styleUrls: ['./series-details.component.scss'],
 })
-export class SeriesDetailsComponent implements OnInit {
+export class SeriesDetailsComponent implements OnInit, OnDestroy {
   unsubscribe$ = new Subject<void>();
   serie$ = new BehaviorSubject<MovieDetails | SeriesDetails | undefined>(
     undefined
@@ -102,6 +102,6 @@ export class SeriesDetailsComponent implements OnInit {
       this.store.dispatch(
         SeriesActions.removeFavorite({ id: favoriteRequest.media_id })
       );
-  }
+    }
   }
 }

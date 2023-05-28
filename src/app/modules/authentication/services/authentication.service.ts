@@ -1,9 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthResponse } from '../interfaces/auth-response.interface';
-import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Response } from '../../shared/interfaces/response.interface';
+import { AuthResponse } from '../interfaces/auth-response.interface';
 
 @Injectable()
 export class AuthenticationService {
@@ -17,8 +17,8 @@ export class AuthenticationService {
     );
   }
 
-  createSession(): Observable<any> {
-    return this.http.post(
+  createSession(): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(
       `${environment.tmdbApiHost}/authentication/session/new`,
       { request_token: this.getToken().request_token }
     );

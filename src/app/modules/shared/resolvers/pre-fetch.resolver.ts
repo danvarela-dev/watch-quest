@@ -1,24 +1,19 @@
 import { Injectable } from '@angular/core';
 import {
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  Resolve,
+  Resolve
 } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable, forkJoin, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { AppState } from 'src/app/store/app.store';
 import { MoviesActions } from '../../movies/store/movies.actions';
 import { SeriesActions } from '../../series/store/series.actions';
-import { Observable, forkJoin, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
 
 @Injectable()
 export class PreFetchResolver implements Resolve<boolean> {
   constructor(private store: Store<AppState>) {}
 
-  resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> {
+  resolve(): Observable<boolean> {
     const movieActions = [
       MoviesActions.loadRatedMovies(),
       MoviesActions.loadFavoriteMovies(),

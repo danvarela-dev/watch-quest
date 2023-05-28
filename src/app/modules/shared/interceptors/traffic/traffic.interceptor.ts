@@ -37,6 +37,7 @@ export class TrafficInterceptor implements HttpInterceptor {
     });
 
     return next.handle(clonedRequest).pipe(
+      /*disable @typescript-eslint/no-explicit-any*/
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse && request.method !== 'GET') {
           const { body } = event;

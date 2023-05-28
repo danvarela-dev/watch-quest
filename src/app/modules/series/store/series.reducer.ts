@@ -1,8 +1,7 @@
-import { createFeature, createReducer, on } from '@ngrx/store';
-import { SeriesActions } from './series.actions';
 import { EntityState, Update, createEntityAdapter } from '@ngrx/entity';
+import { createFeature, createReducer, on } from '@ngrx/store';
 import { Series, SeriesDetails } from '../interfaces/series.interface';
-import { Provider } from '../../shared/interfaces/provider.interface';
+import { SeriesActions } from './series.actions';
 
 export const seriesFeatureKey = 'series';
 

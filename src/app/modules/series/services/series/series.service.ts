@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Credits } from 'src/app/modules/movies/interfaces/movies.interfaces';
 import { FavoriteRequest } from 'src/app/modules/shared/interfaces/favorite.interface';
+import { ProviderResponse } from 'src/app/modules/shared/interfaces/provider.interface';
 import { Response } from 'src/app/modules/shared/interfaces/response.interface';
 import { WatchlistRequest } from 'src/app/modules/shared/interfaces/watchlist.interface';
 import { environment } from 'src/environments/environment';
@@ -9,11 +11,6 @@ import {
   SeriesDetails,
   SeriesResponse,
 } from '../../interfaces/series.interface';
-import { ProviderResponse } from 'src/app/modules/shared/interfaces/provider.interface';
-import {
-  Cast,
-  Credits,
-} from 'src/app/modules/movies/interfaces/movies.interfaces';
 
 @Injectable()
 export class SeriesService {

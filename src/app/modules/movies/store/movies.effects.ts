@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { EMPTY } from 'rxjs';
 import { finalize, map, mergeMap } from 'rxjs/operators';
 import { AppState } from 'src/app/store/app.store';
 import { Response } from '../../shared/interfaces/response.interface';

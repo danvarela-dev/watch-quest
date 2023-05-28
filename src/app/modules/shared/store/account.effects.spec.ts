@@ -3,17 +3,15 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable } from 'rxjs';
 
 import { AccountEffects } from './account.effects';
+import { Action } from '@ngrx/store';
 
 describe('AccountEffects', () => {
-  let actions$: Observable<any>;
+  let actions$: Observable<Action>;
   let effects: AccountEffects;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        AccountEffects,
-        provideMockActions(() => actions$)
-      ]
+      providers: [AccountEffects, provideMockActions(() => actions$)],
     });
 
     effects = TestBed.inject(AccountEffects);

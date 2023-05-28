@@ -6,12 +6,12 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, filter, takeUntil } from 'rxjs';
+import { Router } from '@angular/router';
+import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
 import { MovieDetails } from 'src/app/modules/movies/interfaces/movies.interfaces';
 import { SeriesDetails } from 'src/app/modules/series/interfaces/series.interface';
 import { FavoriteRequest } from '../../interfaces/favorite.interface';
 import { WatchlistRequest } from '../../interfaces/watchlist.interface';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-card',

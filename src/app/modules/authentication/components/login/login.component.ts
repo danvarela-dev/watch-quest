@@ -1,9 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { ActivatedRoute, Route, Router } from '@angular/router';
-import { Subject, finalize, takeUntil } from 'rxjs';
-import { AuthResponse } from '../../interfaces/auth-response.interface';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { AuthResponse } from '../../interfaces/auth-response.interface';
 import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
@@ -11,20 +9,10 @@ import { AuthenticationService } from '../../services/authentication.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit, OnDestroy {
-  private unsubscribe$ = new Subject<void>();
+export class LoginComponent {
   authStatus: AuthResponse;
 
   constructor(private route: Router, private auth: AuthenticationService) {}
-
-  ngOnInit(): void {
-    
-  }
-
-  ngOnDestroy(): void {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
-  }
 
   login(): void {
     this.auth.requestToken().subscribe((authResponse: AuthResponse) => {

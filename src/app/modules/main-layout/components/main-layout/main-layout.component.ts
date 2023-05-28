@@ -8,10 +8,9 @@ import {
   Observable,
   Subject,
   debounceTime,
-  filter,
   of,
   switchMap,
-  takeUntil,
+  takeUntil
 } from 'rxjs';
 import { AuthenticationService } from 'src/app/modules/authentication/services/authentication.service';
 import {
@@ -84,7 +83,7 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
         },
         (error) => {
           this.toastr.error(error.error.status_message);
-          this.queryResults = undefined;  
+          this.queryResults = undefined;
         }
       );
   }

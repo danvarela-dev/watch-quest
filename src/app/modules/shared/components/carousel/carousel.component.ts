@@ -80,9 +80,9 @@ export class CarouselComponent implements OnInit, OnDestroy {
   ): (MovieDetails | SeriesDetails | undefined)[][] {
     if (!this.slidesPagePair) return [[]];
 
-    let result = [];
+    const result = [];
 
-    for (var i = 0; i < slides.length; i += 3) {
+    for (let i = 0; i < slides.length; i += 3) {
       result.push(slides.slice(i, i + 3));
     }
     return result;

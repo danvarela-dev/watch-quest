@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -17,7 +17,7 @@ import { WatchlistRequest } from '../../shared/interfaces/watchlist.interface';
   templateUrl: './watchlist-dashboard.component.html',
   styleUrls: ['./watchlist-dashboard.component.scss'],
 })
-export class WathchlistDashboardComponent {
+export class WatchlistDashboardComponent implements OnInit {
   watchlistMovies$: Observable<(MovieDetails | undefined)[]>;
   watchlistSeries$: Observable<(SeriesDetails | undefined)[]>;
 

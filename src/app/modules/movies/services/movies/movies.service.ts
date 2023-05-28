@@ -1,17 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { SeriesResponse } from 'src/app/modules/series/interfaces/series.interface';
 import { FavoriteRequest } from 'src/app/modules/shared/interfaces/favorite.interface';
+import { ProviderResponse } from 'src/app/modules/shared/interfaces/provider.interface';
 import { Response } from 'src/app/modules/shared/interfaces/response.interface';
 import { WatchlistRequest } from 'src/app/modules/shared/interfaces/watchlist.interface';
 import { environment } from 'src/environments/environment';
 import {
-  Movie,
   MovieDetails,
-  MoviesResponse,
+  MoviesResponse
 } from '../../interfaces/movies.interfaces';
-import { ProviderResponse } from 'src/app/modules/shared/interfaces/provider.interface';
-import { SeriesResponse } from 'src/app/modules/series/interfaces/series.interface';
 
 @Injectable()
 export class MoviesService {

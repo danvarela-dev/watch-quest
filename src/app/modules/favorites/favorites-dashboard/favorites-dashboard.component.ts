@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/app.store';
-import { selectFavoritesMovies } from '../../movies/store/movies.selectors';
-import { MoviesActions } from '../../movies/store/movies.actions';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { MovieDetails } from '../../movies/interfaces/movies.interfaces';
-import { SeriesDetails } from '../../series/interfaces/series.interface';
-import { selectFavoriteSeries } from '../../series/store/series.selectors';
-import { SeriesActions } from '../../series/store/series.actions';
 import { Router } from '@angular/router';
-import { WatchlistRequest } from '../../shared/interfaces/watchlist.interface';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AppState } from 'src/app/store/app.store';
+import { MovieDetails } from '../../movies/interfaces/movies.interfaces';
+import { MoviesActions } from '../../movies/store/movies.actions';
+import { selectFavoritesMovies } from '../../movies/store/movies.selectors';
+import { SeriesDetails } from '../../series/interfaces/series.interface';
+import { SeriesActions } from '../../series/store/series.actions';
+import { selectFavoriteSeries } from '../../series/store/series.selectors';
 import { FavoriteRequest } from '../../shared/interfaces/favorite.interface';
+import { WatchlistRequest } from '../../shared/interfaces/watchlist.interface';
 
 @Component({
   selector: 'app-favorites-dashboard',

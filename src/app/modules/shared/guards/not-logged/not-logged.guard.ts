@@ -11,10 +11,7 @@ import { AuthenticationService } from 'src/app/modules/authentication/services/a
 export class NotLoggedGuard {
   constructor(private auth: AuthenticationService, private route: Router) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): boolean {
+  canActivate(): boolean {
     const authResponse: AuthResponse = this.auth.getToken();
     const sessionId = this.auth.getSessionId();
     if (!authResponse.request_token || !sessionId) {
