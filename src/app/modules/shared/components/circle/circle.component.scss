@@ -1,0 +1,25 @@
+div.circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+img.circle {
+  width: 150px;
+  height: auto;
+  border-radius: 12px;
+}
+
+i.circle {
+
+  color: white;
+
+  &::before {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 225px;
+    font-size: 64px;
+  }
+}

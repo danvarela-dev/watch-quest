@@ -8,9 +8,8 @@
     "build": "npm run config -- --environment=prod && ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint",
-    "deploy": "ng build --configuration production --base-href https://davaflo.github.io/watch-quest/ && angular-cli-ghpages --branch develop"
-      },
+    "lint": "ng lint"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~16.0.2",

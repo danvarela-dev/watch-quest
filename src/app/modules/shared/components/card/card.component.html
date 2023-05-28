@@ -1,0 +1,80 @@
+<div
+  class="card-wrapper"
+  [ngClass]="{'details': !isThumbnail,}"
+  *ngIf="getMediaObservable() | async as media"
+>
+  <div
+    class="card"
+    [ngStyle]="{
+      'background-image': url
+    }"
+  >
+    <div class="top">
+      <div class="buttons" *ngIf="!isQueryResult">
+        <div class="left"></div>
+        <div class="right">
+          <i
+            [ngClass]="{
+              'ri-bookmark-line': !media.is_watchlist,
+              'ri-bookmark-fill': media.is_watchlist
+            }"
+            (click)="addToWatchlist(media.is_watchlist ?? false)"
+          ></i>
+          <i
+            [ngClass]="{
+              'ri-heart-line': !media.is_favorite,
+              'ri-heart-fill': media.is_favorite
+            }"
+            (click)="addFavorite(media.is_favorite ?? false)"
+          ></i>
+          <a [href]="tmbdBaseUrl + media.id" target="_blank"
+            ><i class="ri-external-link-line"></i
+          ></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom">
+      <div class="left">
+        <div class="rating-chip" *ngIf="!isQueryResult">
+          <div
+            class="star"
+            *ngFor="let rating of ratingArray; let i = index"
+            (mouseenter)="onHoverRating(i + 1)"
+            (mouseleave)="setRating()"
+            (click)="onClickRating(i + 1)"
+          >
+            <i *ngIf="rating === 'fullstar'" class="ri-star-fill"></i>
+            <i *ngIf="rating === 'emptystar'" class="ri-star-line"></i>
+          </div>
+        </div>
+
+        <div class="title" (click)="selectMedia()">
+          <div class="left">
+            <span>
+              {{ getMediaTitle() | uppercase }} -
+              {{ getMediaReleaseDate() | date : "yyyy" }}
+            </span>
+          </div>
+        </div>
+
+        <p *ngIf="!isThumbnail">
+          {{ media.overview }}
+        </p>
+      </div>
+
+      <circle-progress
+        *ngIf="!isThumbnail && !isQueryResult"
+        [style.pointer-events]="'none'"
+        [percent]="media.vote_average * 10"
+        [radius]="45"
+        [animation]="true"
+        [animationDuration]="300"
+        [subtitle]="'Vote Average'"
+        [showBackground]="true"
+        [showInnerStroke]="false"
+        subtitleFontWeight="600"
+      ></circle-progress>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,179 @@
+@use 'sass:map';
+@import 'colors.scss';
+
+.card-wrapper {
+  width: 100%;
+  height: 100%;
+
+  &.details {
+    .card {
+      display: flex;
+      justify-content: space-between;
+      width: 90vw;
+      height: 160%;
+      padding: 24px;
+
+      .bottom {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        .title {
+          pointer-events: none;
+          font-size: 22px;
+          margin-top: 16px;
+        }
+
+        .rating-chip {
+          margin-left: 4px;
+        }
+      }
+    }
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    width: 90vw;
+    justify-content: space-between;
+    background-size: cover;
+    border-radius: 24px;
+    padding: 16px;
+    width: 500px;
+    height: 300px;
+
+    .top {
+      display: flex;
+      justify-content: flex-end;
+
+      .buttons {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px;
+        gap: 8px;
+        opacity: 0.8;
+
+        .right {
+          display: flex;
+          gap: 8px;
+
+          a {
+            text-decoration: none;
+            color: white;
+          }
+
+          i {
+            opacity: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: map.get($grays, 1);
+            backdrop-filter: blur(5px);
+
+            &.ri-heart-line:hover {
+              color: red;
+            }
+
+            &.ri-bookmark-line:hover {
+              color: $gold;
+            }
+
+
+            &.ri-heart-fill {
+              color: red;
+            }
+
+            &.ri-bookmark-fill {
+              color: $gold;
+            }
+
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+
+    .bottom {
+      display: flex;
+      flex-direction: column;
+
+      .left {
+        p {
+          font-weight: normal;
+          font-size: 16px;
+          text-shadow: 1px 1px 0px #000000;
+        }
+
+        .rating-chip {
+          display: flex;
+          justify-content: center;
+          padding: 2px 8px;
+          border-radius: 18px;
+          width: 100px;
+          height: 24px;
+          backdrop-filter: blur(5px);
+
+          i {
+            font-size: 22px;
+            width: 18px;
+            height: 18px;
+            text-shadow: 2px 2px 0px #000000;
+            padding: 0 2px;
+
+            &.ri-star-fill,
+            &.ri-star-half-line {
+              color: $gold;
+            }
+
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
+      .title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 18px;
+        font-weight: 800;
+        margin-top: 8px;
+        text-shadow: 2px 2px 0px #000000;
+        user-select: none;
+
+        &:hover {
+          cursor: pointer;
+          color: map.get($blues, 4);
+          transition: ease-in-out 0.2s;
+        }
+
+        i {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: black;
+          font-size: 24px;
+          height: 30px;
+          width: 30px;
+          background-color: white;
+          text-shadow: 2px 2px 0px #000000;
+          border-radius: 50%;
+
+          &:hover {
+            cursor: pointer;
+            background-color: transparent;
+            color: white;
+            backdrop-filter: blur(5px);
+          }
+        }
+      }
+    }
+  }
+}

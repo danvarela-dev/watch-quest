@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { AuthResponse } from '../../interfaces/auth-response.interface';
 import { AuthenticationService } from '../../services/authentication.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',

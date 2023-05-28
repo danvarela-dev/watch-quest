@@ -1,0 +1,30 @@
+<div class="watchlist">
+  <div class="movies" *ngIf="watchlistMovies$ | async">
+    <div class="title">Watchlist Movies</div>
+    <app-carousel
+      [slidesPagePair]="{
+        currentSlidePage: currentWatchlistMoviesPage,
+        slides: watchlistMovies$
+      }"
+      [mediaType]="'movie'"
+      (onMediaSelect)="openDetails($event, 'movies')"
+      (onRate)="rate($event, 'movie')"
+      (onAddFavorite)="addFavorite($event, 'movie')"
+      (onAddToWatchlist)="addToWatchlist($event, 'movie')"
+    ></app-carousel>
+  </div>
+  <div class="series" *ngIf="watchlistSeries$ | async">
+    <div class="title">Watchlist Series</div>
+    <app-carousel
+      [slidesPagePair]="{
+        currentSlidePage: currentWatchlistSeriesPage,
+        slides: watchlistSeries$
+      }"
+      [mediaType]="'serie'"
+      (onMediaSelect)="openDetails($event, 'series')"
+      (onRate)="rate($event, 'serie')"
+      (onAddFavorite)="addFavorite($event, 'serie')"
+      (onAddToWatchlist)="addToWatchlist($event, 'serie')"
+    ></app-carousel>
+  </div>
+</div>

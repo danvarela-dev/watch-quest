@@ -1,0 +1,23 @@
+.favorite {
+  padding: 16px;
+
+  .movies,
+  .series {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 32px;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+
+    .title {
+      font-size: 36px;
+      font-weight: 500;
+      margin: 16px 115px;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+  }
+}

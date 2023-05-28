@@ -1,0 +1,5 @@
+<div class="circle" [ngStyle]="{ color}" *ngIf="color && image !== ''">
+  {{ value }}
+</div>
+<img *ngIf="image !== ''" class="circle" [src]="image" alt="Image" />
+<i *ngIf="image === ''" class="ri-image-line circle"></i>

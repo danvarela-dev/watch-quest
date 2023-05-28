@@ -1,0 +1,44 @@
+@use 'sass:map';
+@import 'colors.scss';
+
+.carousel {
+  display: flex;
+  overflow-x: hidden;
+  align-items: center;
+  gap: 16px;
+  padding: 0 16px;
+  width: 100%;
+
+  i {
+    display: flex;
+    align-items: center;
+    font-size: 32px;
+    background-color: map.get($blues, 2);
+    border-radius: 50%;
+
+    &::before {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: map.get($blues, 3);
+    }
+
+    &:active {
+      background-color: map.get($blues, 1);
+    }
+  }
+
+  .slides div {
+    display: flex;
+    flex-direction: row;
+    padding: 16px 0;
+    gap: 32px;
+  }
+}
