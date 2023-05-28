@@ -45,7 +45,7 @@ const environmentFileContent = `
     host: ${
       !isProduction
         ? "'http://localhost:4200'"
-        : "'https://davaflo.github.io/watch-quest/'"
+        : "'https://develop--majestic-selkie-153b60.netlify.app/'"
     },
   };
   `;
