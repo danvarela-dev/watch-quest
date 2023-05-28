@@ -54,10 +54,6 @@ export class MoviesDashboardComponent implements OnInit {
     this.popular$ = this.store.select(selectPopularMovies);
     this.topRated$ = this.store.select(selectTopRatedMovies);
     this.upcoming$ = this.store.select(selectUpcomingMovies);
-
-    this.store.dispatch(MoviesActions.loadFavoriteMovies());
-    this.store.dispatch(MoviesActions.loadWatchlistMovies());
-    this.store.dispatch(MoviesActions.loadRatedMovies());
   }
 
   openMovieDetails(id: number, category: string): void {

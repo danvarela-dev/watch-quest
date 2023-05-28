@@ -52,7 +52,14 @@ export class MoviesEffects {
               )
             );
           default:
-            return EMPTY;
+            return this.moviesService.getUpcoming(page).pipe(
+              map((data) =>
+                MoviesActions.loadMoviesSuccess({
+                  movies: data,
+                  category: category,
+                })
+              )
+            );
         }
       })
     );

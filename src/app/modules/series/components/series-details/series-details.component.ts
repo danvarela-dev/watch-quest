@@ -38,7 +38,12 @@ export class SeriesDetailsComponent implements OnInit {
           category,
         });
 
-        this.store.dispatch(SeriesActions.loadSerieDetails({ id, category }));
+        this.store.dispatch(
+          SeriesActions.loadSerieDetails({
+            id,
+            category: category ?? 'popular',
+          })
+        );
         this.store.dispatch(SeriesActions.loadSerieProviders({ id }));
         this.store.dispatch(SeriesActions.loadSerieCast({ id }));
       });

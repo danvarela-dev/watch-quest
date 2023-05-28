@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app.routing.module';
 import { MainLayoutModule } from './modules/main-layout/main-layout.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { reducers } from './store/app.store';
+import { PreFetchResolver } from './modules/shared/resolvers/pre-fetch.resolver';
 
 const components = [AppComponent];
 const modules = [
@@ -34,6 +35,6 @@ const modules = [
   declarations: [...components],
   imports: [...modules],
   bootstrap: [AppComponent],
-  providers: [],
+  providers: [PreFetchResolver],
 })
 export class AppModule {}

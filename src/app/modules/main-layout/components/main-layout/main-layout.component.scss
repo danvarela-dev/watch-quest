@@ -6,9 +6,40 @@
   border-radius: 24px;
 }
 
+.dropdown {
+  width: 100%;
+  height: 100px;
+  background-color: white;
+  ;
+}
+
 .main {
   line-height: 24px;
   color: white;
+
+  .results {
+    padding: 30px;
+    width: 90%;
+
+    .title {
+      display: flex;
+      justify-content: space-between;
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .movies {
+      display: grid;
+      column-gap: 8px;
+      row-gap: 16px;
+      grid-template-columns: repeat(3, 1fr);
+
+      app-card {
+        width: 100%;
+      }
+    }
+  }
 
   .navigation-bar {
     display: flex;
@@ -23,8 +54,33 @@
       height: 100%;
       align-items: center;
       justify-content: center;
-      padding-left: 6px;
+      padding: 0px 16px 0px 8px;
       gap: 8px;
+
+      select {
+        background-color: transparent;
+        border: none;
+        color: white;
+        padding: 8px;
+        font-size: 14px;
+
+        option {
+          color: white;
+          background-color: map.get($blues, 1);
+          margin: 8px;
+          font-size: 14px;
+
+          &:hover {
+            background-color: map.get($blues, 2);
+            cursor: pointer;
+          }
+        }
+
+        &:focus,
+        &:active {
+          outline: none;
+        }
+      }
 
       i {
         display: flex;
@@ -93,7 +149,7 @@
     .right {
       display: flex;
       justify-content: center;
-      padding: 0 12px;
+      padding: 0 16px;
       width: 15%;
 
       .profile {
@@ -108,7 +164,10 @@
           width: 100%;
         }
 
-        .ri-user-fill,
+        .ri-user-fill {
+          font-size: 24px;
+        }
+
         img {
           display: flex;
           justify-content: center;
@@ -121,18 +180,25 @@
           border-radius: 50%;
         }
 
-        .ri-arrow-drop-down-line {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 32px;
-          width: 32px;
-          height: 32px;
+        .ri-logout-box-r-line {
+          font-size: 24px;
           border-radius: 50%;
+
+          &::before {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+          }
 
           &:hover {
             cursor: pointer;
             background-color: map.get($blues, 2);
+          }
+
+          &:active {
+            background-color: map.get($blues, 3);
           }
         }
       }

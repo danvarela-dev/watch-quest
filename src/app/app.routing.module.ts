@@ -3,12 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './modules/main-layout/components/main-layout/main-layout.component';
 import { LoggedGuard } from './modules/shared/guards/login/logged.guard';
 import { NotLoggedGuard } from './modules/shared/guards/not-logged/not-logged.guard';
+import { resolve } from 'dns';
+import { PreFetchResolver } from './modules/shared/resolvers/pre-fetch.resolver';
 
 const routes: Routes = [
   {
     path: 'cms',
     component: MainLayoutComponent,
     canActivate: [LoggedGuard],
+    resolve: { prefetch: PreFetchResolver },
     children: [
       {
         path: 'movies',
@@ -43,11 +46,6 @@ const routes: Routes = [
       import('./modules/authentication/authentication.module').then(
         (m) => m.AuthenticationModule
       ),
-  },
-
-  {
-    path: 'cms',
-    redirectTo: 'cms/movies',
   },
   {
     path: '',

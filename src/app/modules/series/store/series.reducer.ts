@@ -101,6 +101,10 @@ export const seriesReducer = createReducer(
           state.favorites.series
         ),
       },
+      watchlist: {
+        ...state.watchlist,
+        series: seriesAdapter.updateMany(changes, state.watchlist.series),
+      },
       airingToday: {
         ...state.airingToday,
         series: seriesAdapter.updateMany(changes, state.airingToday.series),
@@ -123,6 +127,26 @@ export const seriesReducer = createReducer(
   on(SeriesActions.rateSerieSuccess, (state, { id, rating }) => {
     return {
       ...state,
+      watchlist: {
+        ...state.watchlist,
+        series: seriesAdapter.upsertOne(
+          {
+            ...state.watchlist.series.entities[id],
+            rating,
+          } as SeriesDetails,
+          state.watchlist.series
+        ),
+      },
+      favorites: {
+        ...state.favorites,
+        series: seriesAdapter.upsertOne(
+          {
+            ...state.favorites.series.entities[id],
+            rating,
+          } as SeriesDetails,
+          state.favorites.series
+        ),
+      },
       airingToday: {
         ...state.airingToday,
         series: seriesAdapter.upsertOne(
@@ -165,8 +189,8 @@ export const seriesReducer = createReducer(
       },
     };
   }),
-  on(SeriesActions.loadRatedSeriesSuccess, (state, action) => {
-    const changes: Update<Series>[] = action.data.series.map((serie) => {
+  on(SeriesActions.loadRatedSeriesSuccess, (state, { data: { series } }) => {
+    const changes: Update<Series>[] = series.map((serie) => {
       return {
         id: serie.id,
         changes: {
@@ -177,6 +201,14 @@ export const seriesReducer = createReducer(
 
     return {
       ...state,
+      favorites: {
+        ...state.favorites,
+        series: seriesAdapter.updateMany(changes, state.favorites.series),
+      },
+      watchlist: {
+        ...state.watchlist,
+        series: seriesAdapter.updateMany(changes, state.watchlist.series),
+      },
       airingToday: {
         ...state.airingToday,
         series: seriesAdapter.updateMany(changes, state.airingToday.series),
@@ -213,6 +245,10 @@ export const seriesReducer = createReducer(
           ...state.watchlist,
           series: seriesAdapter.upsertMany(series, state.watchlist.series),
         },
+        favorites: {
+          ...state.favorites,
+          series: seriesAdapter.updateMany(changes, state.favorites.series),
+        },
         airingToday: {
           ...state.airingToday,
           series: seriesAdapter.updateMany(changes, state.airingToday.series),
@@ -235,6 +271,26 @@ export const seriesReducer = createReducer(
   on(SeriesActions.removeFavorite, (state, action) => {
     return {
       ...state,
+      favorites: {
+        ...state.favorites,
+        series: seriesAdapter.upsertOne(
+          {
+            ...state.favorites.series.entities[action.id],
+            is_favorite: false,
+          } as SeriesDetails,
+          state.favorites.series
+        ),
+      },
+      watchlist: {
+        ...state.watchlist,
+        series: seriesAdapter.upsertOne(
+          {
+            ...state.watchlist.series.entities[action.id],
+            is_favorite: false,
+          } as SeriesDetails,
+          state.watchlist.series
+        ),
+      },
       airingToday: {
         ...state.airingToday,
         series: seriesAdapter.upsertOne(
@@ -280,6 +336,26 @@ export const seriesReducer = createReducer(
   on(SeriesActions.removeFromWatchlist, (state, action) => {
     return {
       ...state,
+      watchlist: {
+        ...state.watchlist,
+        series: seriesAdapter.upsertOne(
+          {
+            ...state.watchlist.series.entities[action.id],
+            is_watchlist: false,
+          } as SeriesDetails,
+          state.watchlist.series
+        ),
+      },
+      favorites: {
+        ...state.favorites,
+        series: seriesAdapter.upsertOne(
+          {
+            ...state.favorites.series.entities[action.id],
+            is_watchlist: false,
+          } as SeriesDetails,
+          state.favorites.series
+        ),
+      },
       airingToday: {
         ...state.airingToday,
         series: seriesAdapter.upsertOne(

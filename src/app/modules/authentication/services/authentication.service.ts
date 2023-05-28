@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { AuthResponse } from '../interfaces/auth-response.interface';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Response } from '../../shared/interfaces/response.interface';
 
 @Injectable()
 export class AuthenticationService {
@@ -37,5 +38,11 @@ export class AuthenticationService {
 
   getSessionId(): string {
     return localStorage.getItem('session_id') ?? '{}';
+  }
+
+  logOut(): Observable<Response> {
+    return this.http.delete<Response>(
+      `${environment.tmdbApiHost}/authentication/session`
+    );
   }
 }

@@ -22,6 +22,7 @@ export class CardComponent implements OnInit, OnDestroy {
   @Input('media') media$: BehaviorSubject<
     MovieDetails | SeriesDetails | undefined
   >;
+  @Input() isQueryResult = false;
   @Input() mediaType: 'movie' | 'serie' = 'movie';
   @Output() afterViewInit = new EventEmitter<void>();
   @Output() onAddFavorite = new EventEmitter<FavoriteRequest>();

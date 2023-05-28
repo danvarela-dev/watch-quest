@@ -54,10 +54,6 @@ export class SeriesDashboardComponent implements OnInit {
     this.popular$ = this.store.select(selectPopularSeries);
     this.topRated$ = this.store.select(selectTopRatedSeries);
     this.airingToday$ = this.store.select(selectAiringTodaySeries);
-
-    this.store.dispatch(SeriesActions.loadFavoriteSeries());
-    this.store.dispatch(SeriesActions.loadWatchlistSeries());
-    this.store.dispatch(SeriesActions.loadRatedSeries());
   }
 
   openSeriesDetails(id: number, category: string) {

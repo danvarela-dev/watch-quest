@@ -3,15 +3,17 @@
 
   <div class="slides" *ngIf="paginatedSlides">
     <div [@slideAnimation]="animationState">
-      <app-card
-        *ngFor="let slide of paginatedSlides[currentPage]"
-        [media]="convertToBehaviorSubject(slide)"
-        [mediaType]="mediaType"
-        (onAddFavorite)="addFavorite($event)"
-        (onRate)="rateMedia($event)"
-        (onAddToWatchlist)="addToWatchlist($event)"
-        (onMediaSelect)="selectMedia($event)"
-      ></app-card>
+      <ng-container *ngFor="let slide of paginatedSlides[currentPage]">
+        <app-card
+          *ngIf="slide !== null"
+          [media]="convertToBehaviorSubject(slide)"
+          [mediaType]="mediaType"
+          (onAddFavorite)="addFavorite($event)"
+          (onRate)="rateMedia($event)"
+          (onAddToWatchlist)="addToWatchlist($event)"
+          (onMediaSelect)="selectMedia($event)"
+        ></app-card>
+      </ng-container>
     </div>
   </div>
   <i class="ri-arrow-drop-right-line" (click)="nextSlide()"></i>

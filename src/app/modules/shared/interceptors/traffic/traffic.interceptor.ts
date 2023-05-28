@@ -24,14 +24,6 @@ export class TrafficInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    if (this.auth.getSessionId() === '{}') {
-      this.auth.createSession().subscribe((session) => {
-        if (session.success) {
-          this.auth.saveSessionId(session.session_id);
-        }
-      });
-    }
-
     const clonedRequest = request.clone({
       headers: request.headers.set(
         'Authorization',

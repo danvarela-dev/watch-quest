@@ -12,7 +12,7 @@ import { MovieDetails } from 'src/app/modules/movies/interfaces/movies.interface
 import { SeriesDetails } from 'src/app/modules/series/interfaces/series.interface';
 import { FavoriteRequest } from '../../interfaces/favorite.interface';
 import { WatchlistRequest } from '../../interfaces/watchlist.interface';
-
+import { convertToBehaviorSubject } from '../../utils/helper.functions';
 @Component({
   selector: 'app-carousel',
   templateUrl: './carousel.component.html',
@@ -72,7 +72,7 @@ export class CarouselComponent implements OnInit, OnDestroy {
   convertToBehaviorSubject(
     media: MovieDetails | SeriesDetails | undefined
   ): BehaviorSubject<MovieDetails | SeriesDetails | undefined> {
-    return new BehaviorSubject<MovieDetails | SeriesDetails | undefined>(media);
+    return convertToBehaviorSubject(media);
   }
 
   paginateSlides(

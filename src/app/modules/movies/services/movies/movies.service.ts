@@ -11,6 +11,7 @@ import {
   MoviesResponse,
 } from '../../interfaces/movies.interfaces';
 import { ProviderResponse } from 'src/app/modules/shared/interfaces/provider.interface';
+import { SeriesResponse } from 'src/app/modules/series/interfaces/series.interface';
 
 @Injectable()
 export class MoviesService {
@@ -89,6 +90,15 @@ export class MoviesService {
   getProviders(id: number): Observable<ProviderResponse> {
     return this.http.get<ProviderResponse>(
       `${environment.tmdbApiHost}/movie/${id}/watch/providers`
+    );
+  }
+
+  search(
+    query: string,
+    searchBy: string
+  ): Observable<MoviesResponse | SeriesResponse> {
+    return this.http.get<MoviesResponse | SeriesResponse>(
+      `${environment.tmdbApiHost}/search/${searchBy}?query=${query}`
     );
   }
 }

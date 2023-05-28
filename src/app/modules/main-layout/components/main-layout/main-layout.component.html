@@ -1,10 +1,15 @@
 <div class="main">
   <div class="navigation-bar">
     <div class="left">
-      <div class="search blue-bg">
+      <form [formGroup]="searchForm" class="search blue-bg">
         <i class="ri-search-line"></i>
-        <input type="text" placeholder="Search" />
-      </div>
+        <input formControlName="searchField" type="text" placeholder="Search" />
+        <select formControlName="searchBy">
+          <option selected value="movie">Search by</option>
+          <option value="movie">Movies</option>
+          <option value="tv">Series</option>
+        </select>
+      </form>
     </div>
     <div class="center blue-bg">
       <div
@@ -37,7 +42,11 @@
       </div>
     </div>
     <div class="right blue-bg">
-      <div class="profile" *ngIf="account$ | async as account">
+      <div
+        class="profile"
+        *ngIf="account$ | async as account"
+        #dropdownReference
+      >
         <ng-container
           *ngIf="account.avatar.tmdb.avatar_path !== ''; then icon; else img"
         ></ng-container>
@@ -55,11 +64,26 @@
           />
         </ng-template>
         <span>{{ account.name ? account.name : account.username }}</span>
-        <i class="ri-arrow-drop-down-line"></i>
+        <i class="ri-logout-box-r-line" (click)="logOut()"></i>
       </div>
     </div>
   </div>
-  <div class="outlet">
+  <div class="outlet" *ngIf="!queryResults; else results">
     <router-outlet></router-outlet>
   </div>
+  <ng-template #results>
+    <div class="results" *ngIf="getResults().length > 0">
+      <div class="title">Search results</div>
+      <div class="movies" *ngIf="results">
+        <app-card
+          *ngFor="let result of getResults()"
+          [media]="convertToBehaviorSubject(result)"
+          [mediaType]="getFieldValue('searchBy')"
+          [isQueryResult]="true"
+          (onMediaSelect)="goToMedia(result?.id || 0)"
+        >
+        </app-card>
+      </div>
+    </div>
+  </ng-template>
 </div>

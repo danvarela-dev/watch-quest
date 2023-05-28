@@ -100,7 +100,10 @@ export const moviesReducer = createReducer(
           state.favorites.movies
         ),
       },
-
+      watchlist: {
+        ...state.watchlist,
+        movies: moviesAdapter.updateMany(changes, state.watchlist.movies),
+      },
       nowPlaying: {
         ...state.nowPlaying,
         movies: moviesAdapter.updateMany(changes, state.nowPlaying.movies),
@@ -123,6 +126,26 @@ export const moviesReducer = createReducer(
   on(MoviesActions.rateMovieSuccess, (state, { id, rating }) => {
     return {
       ...state,
+      favorites: {
+        ...state.favorites,
+        movies: moviesAdapter.upsertOne(
+          {
+            ...state.favorites.movies.entities[id],
+            rating,
+          } as MovieDetails,
+          state.favorites.movies
+        ),
+      },
+      watchlist: {
+        ...state.watchlist,
+        movies: moviesAdapter.upsertOne(
+          {
+            ...state.watchlist.movies.entities[id],
+            rating,
+          } as MovieDetails,
+          state.watchlist.movies
+        ),
+      },
       nowPlaying: {
         ...state.nowPlaying,
         movies: moviesAdapter.upsertOne(
@@ -165,8 +188,8 @@ export const moviesReducer = createReducer(
       },
     };
   }),
-  on(MoviesActions.loadRatedMoviesSuccess, (state, action) => {
-    const changes: Update<Movie>[] = action.data.movies.map((movie) => {
+  on(MoviesActions.loadRatedMoviesSuccess, (state, { data: { movies } }) => {
+    const changes: Update<Movie>[] = movies.map((movie) => {
       return {
         id: movie.id,
         changes: {
@@ -177,6 +200,14 @@ export const moviesReducer = createReducer(
 
     return {
       ...state,
+      favorites: {
+        ...state.favorites,
+        movies: moviesAdapter.updateMany(changes, state.favorites.movies),
+      },
+      watchlist: {
+        ...state.watchlist,
+        movies: moviesAdapter.updateMany(changes, state.watchlist.movies),
+      },
       nowPlaying: {
         ...state.nowPlaying,
         movies: moviesAdapter.updateMany(changes, state.nowPlaying.movies),
@@ -213,6 +244,10 @@ export const moviesReducer = createReducer(
           ...state.watchlist,
           movies: moviesAdapter.upsertMany(movies, state.watchlist.movies),
         },
+        favorites: {
+          ...state.favorites,
+          movies: moviesAdapter.updateMany(changes, state.favorites.movies),
+        },
         nowPlaying: {
           ...state.nowPlaying,
           movies: moviesAdapter.updateMany(changes, state.nowPlaying.movies),
@@ -232,14 +267,34 @@ export const moviesReducer = createReducer(
       };
     }
   ),
-  on(MoviesActions.removeFavorite, (state, action) => {
+  on(MoviesActions.removeFavorite, (state, { id }) => {
     return {
       ...state,
+      favorites: {
+        ...state.favorites,
+        movies: moviesAdapter.upsertOne(
+          {
+            ...state.favorites.movies.entities[id],
+            is_favorite: false,
+          } as MovieDetails,
+          state.favorites.movies
+        ),
+      },
+      watchlist: {
+        ...state.watchlist,
+        movies: moviesAdapter.upsertOne(
+          {
+            ...state.watchlist.movies.entities[id],
+            is_favorite: false,
+          } as MovieDetails,
+          state.watchlist.movies
+        ),
+      },
       nowPlaying: {
         ...state.nowPlaying,
         movies: moviesAdapter.upsertOne(
           {
-            ...state.nowPlaying.movies.entities[action.id],
+            ...state.nowPlaying.movies.entities[id],
             is_favorite: false,
           } as MovieDetails,
           state.nowPlaying.movies
@@ -249,7 +304,7 @@ export const moviesReducer = createReducer(
         ...state.popular,
         movies: moviesAdapter.upsertOne(
           {
-            ...state.popular.movies.entities[action.id],
+            ...state.popular.movies.entities[id],
             is_favorite: false,
           } as MovieDetails,
           state.popular.movies
@@ -259,7 +314,7 @@ export const moviesReducer = createReducer(
         ...state.topRated,
         movies: moviesAdapter.upsertOne(
           {
-            ...state.topRated.movies.entities[action.id],
+            ...state.topRated.movies.entities[id],
             is_favorite: false,
           } as MovieDetails,
           state.topRated.movies
@@ -269,7 +324,7 @@ export const moviesReducer = createReducer(
         ...state.upcoming,
         movies: moviesAdapter.upsertOne(
           {
-            ...state.upcoming.movies.entities[action.id],
+            ...state.upcoming.movies.entities[id],
             is_favorite: false,
           } as MovieDetails,
           state.upcoming.movies
@@ -280,6 +335,26 @@ export const moviesReducer = createReducer(
   on(MoviesActions.removeFromWatchlist, (state, action) => {
     return {
       ...state,
+      watchlist: {
+        ...state.watchlist,
+        movies: moviesAdapter.upsertOne(
+          {
+            ...state.watchlist.movies.entities[action.id],
+            is_watchlist: false,
+          } as MovieDetails,
+          state.watchlist.movies
+        ),
+      },
+      favorites: {
+        ...state.favorites,
+        movies: moviesAdapter.upsertOne(
+          {
+            ...state.favorites.movies.entities[action.id],
+            is_watchlist: false,
+          } as MovieDetails,
+          state.favorites.movies
+        ),
+      },
       nowPlaying: {
         ...state.nowPlaying,
         movies: moviesAdapter.upsertOne(
@@ -325,6 +400,12 @@ export const moviesReducer = createReducer(
   on(
     MoviesActions.loadMovieDetailsSuccess,
     (state, { data: { movie, category } }) => {
+      const changes: Update<Movie> = {
+        id: movie.id,
+        changes: {
+          ...movie,
+        },
+      };
       switch (category) {
         case 'nowPlaying':
           return {
@@ -361,7 +442,9 @@ export const moviesReducer = createReducer(
             },
           };
         default:
-          return state;
+          return {
+            ...state,
+          };
       }
     }
   ),

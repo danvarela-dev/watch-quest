@@ -15,6 +15,13 @@ export class LoggedGuard {
     const authResponse: AuthResponse = this.auth.getToken();
     const sessionId = this.auth.getSessionId();
 
+    if (this.auth.getSessionId() === '{}') {
+      this.auth.createSession().subscribe((session) => {
+        if (session.success) {
+          this.auth.saveSessionId(session.session_id);
+        }
+      });
+    }
     if (
       state.url === '/auth/log-in' &&
       authResponse.request_token &&

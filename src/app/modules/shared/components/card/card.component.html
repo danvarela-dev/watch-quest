@@ -10,7 +10,7 @@
     }"
   >
     <div class="top">
-      <div class="buttons">
+      <div class="buttons" *ngIf="!isQueryResult">
         <div class="left"></div>
         <div class="right">
           <i
@@ -36,7 +36,7 @@
 
     <div class="bottom">
       <div class="left">
-        <div class="rating-chip">
+        <div class="rating-chip" *ngIf="!isQueryResult">
           <div
             class="star"
             *ngFor="let rating of ratingArray; let i = index"
@@ -64,7 +64,7 @@
       </div>
 
       <circle-progress
-        *ngIf="!isThumbnail"
+        *ngIf="!isThumbnail && !isQueryResult"
         [style.pointer-events]="'none'"
         [percent]="media.vote_average * 10"
         [radius]="45"

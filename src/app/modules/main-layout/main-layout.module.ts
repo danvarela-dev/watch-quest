@@ -3,8 +3,10 @@ import { NgModule } from '@angular/core';
 import { AuthenticationModule } from '../authentication/authentication.module';
 import { MoviesRoutingModule } from '../movies/movies.routing.module';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
-import { PortalModule } from '@angular/cdk/portal';
-import { OverlayModule } from '@angular/cdk/overlay';
+import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MoviesService } from '../movies/services/movies/movies.service';
+import { SharedModule } from '../shared/shared.module';
 
 const components = [MainLayoutComponent];
 
@@ -14,9 +16,11 @@ const components = [MainLayoutComponent];
     CommonModule,
     MoviesRoutingModule,
     AuthenticationModule,
-    PortalModule,
-    OverlayModule,
+    RouterModule,
+    ReactiveFormsModule,
+    SharedModule,
   ],
   exports: [...components],
+  providers: [MoviesService],
 })
 export class MainLayoutModule {}

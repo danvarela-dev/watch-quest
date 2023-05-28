@@ -38,8 +38,13 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
           id,
           category,
         });
-
-        this.store.dispatch(MoviesActions.loadMovieDetails({ id, category }));
+        this.store.dispatch(MoviesActions.loadMovies({ category, page: 1 }));
+        this.store.dispatch(
+          MoviesActions.loadMovieDetails({
+            id,
+            category: category ?? 'popular',
+          })
+        );
         this.store.dispatch(MoviesActions.loadMovieProviders({ id }));
       });
 
