@@ -11,6 +11,7 @@ import { MovieDetails } from 'src/app/modules/movies/interfaces/movies.interface
 import { SeriesDetails } from 'src/app/modules/series/interfaces/series.interface';
 import { FavoriteRequest } from '../../interfaces/favorite.interface';
 import { WatchlistRequest } from '../../interfaces/watchlist.interface';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-card',
@@ -23,7 +24,7 @@ export class CardComponent implements OnInit, OnDestroy {
     MovieDetails | SeriesDetails | undefined
   >;
   @Input() isQueryResult = false;
-  @Input() mediaType: 'movie' | 'serie' = 'movie';
+  @Input() mediaType: 'movie' | 'serie' | '' = '';
   @Output() afterViewInit = new EventEmitter<void>();
   @Output() onAddFavorite = new EventEmitter<FavoriteRequest>();
   @Output() onRate = new EventEmitter<{ rating: number; id: number }>();
@@ -35,6 +36,8 @@ export class CardComponent implements OnInit, OnDestroy {
   tmbdBaseUrl = 'https://www.themoviedb.org/movie/';
   unsubscribe$ = new Subject<void>();
 
+  constructor(private router: Router) {}
+
   ngOnInit(): void {
     this.media$.pipe(takeUntil(this.unsubscribe$)).subscribe((media) => {
       if (media) {
@@ -44,6 +47,12 @@ export class CardComponent implements OnInit, OnDestroy {
         }')`;
       }
     });
+
+    if (this.router.url.includes('series') && this.mediaType === '') {
+      this.mediaType = 'serie';
+    } else {
+      this.mediaType = 'movie';
+    }
   }
 
   ngOnDestroy(): void {
@@ -77,7 +86,7 @@ export class CardComponent implements OnInit, OnDestroy {
     const favoriteRequest: FavoriteRequest = {
       favorite: !currentStatus,
       media_id: this.media$.value?.id || 0,
-      media_type: this.mediaType === 'serie' ? 'tv' : 'movie',
+      media_type: this.mediaType === 'serie' ? 'tv' : this.mediaType,
     };
     this.onAddFavorite.emit(favoriteRequest);
   }

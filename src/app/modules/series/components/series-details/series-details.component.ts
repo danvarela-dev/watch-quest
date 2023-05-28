@@ -102,6 +102,6 @@ export class SeriesDetailsComponent implements OnInit {
       this.store.dispatch(
         SeriesActions.removeFavorite({ id: favoriteRequest.media_id })
       );
-    }
+  }
   }
 }

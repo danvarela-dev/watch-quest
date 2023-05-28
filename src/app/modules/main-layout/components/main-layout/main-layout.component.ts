@@ -9,6 +9,7 @@ import {
   Subject,
   debounceTime,
   filter,
+  of,
   switchMap,
   takeUntil,
 } from 'rxjs';
@@ -61,21 +62,29 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
     this.searchForm.valueChanges
       .pipe(
         takeUntil(this.unsubscribe$),
-        debounceTime(500),
-        filter((value) => value !== ''),
-        switchMap((value) =>
-          this.movieService.search(value.searchField, value.searchBy || 'movie')
-        )
+        debounceTime(600),
+        switchMap((value) => {
+          if (value) {
+            return this.movieService.search(
+              value.searchField,
+              value.searchBy || 'movie'
+            );
+          } else {
+            return of({}) as Observable<MoviesResponse | SeriesResponse>;
+          }
+        })
       )
       .subscribe(
         (results: MoviesResponse | SeriesResponse) => {
           this.queryResults = results;
           if (this.queryResults.results.length === 0) {
             this.toastr.warning('No results found');
+            this.queryResults = undefined;
           }
         },
         (error) => {
           this.toastr.error(error.error.status_message);
+          this.queryResults = undefined;  
         }
       );
   }

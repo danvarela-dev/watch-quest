@@ -52,6 +52,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
       .select(selectMovieByID(this.categoryIdPair$.getValue().id))
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((movie) => {
+        console.log(movie);
         this.movie$.next(movie);
       });
 

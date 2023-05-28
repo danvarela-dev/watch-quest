@@ -9,7 +9,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map } from 'rxjs';
 import { AuthenticationService } from 'src/app/modules/authentication/services/authentication.service';
 import { environment } from 'src/environments/environment';
 
@@ -17,7 +17,8 @@ import { environment } from 'src/environments/environment';
 export class TrafficInterceptor implements HttpInterceptor {
   constructor(
     private auth: AuthenticationService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private route: Router
   ) {}
 
   intercept(
@@ -46,6 +47,13 @@ export class TrafficInterceptor implements HttpInterceptor {
           }
         }
         return event;
+      }),
+      catchError((err) => {
+        if (err.status === 404) {
+          this.toastr.error('Resource not found', 'Error');
+          this.route.navigate(['/cms/movies']);
+        }
+        throw err;
       })
     );
   }
