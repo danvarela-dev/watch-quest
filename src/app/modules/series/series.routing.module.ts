@@ -9,6 +9,10 @@ const routes: Routes = [
     component: SeriesDashboardComponent,
   },
   {
+    path: ':id',
+    component: SeriesDetailsComponent,
+  },
+  {
     path: ':category/:id',
     component: SeriesDetailsComponent,
   },

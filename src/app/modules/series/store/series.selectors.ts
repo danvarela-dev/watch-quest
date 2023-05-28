@@ -46,6 +46,22 @@ export const selectAiringTodaySeries = createSelector(
   }
 );
 
+export const selectFavoriteSeries = createSelector(
+  selectSeriesState,
+  (state) => {
+    const { ids, entities } = state.favorites.series;
+    return ids.map((id) => entities[id]);
+  }
+);
+
+export const selectWatchlistSeries = createSelector(
+  selectSeriesState,
+  (state) => {
+    const { ids, entities } = state.watchlist.series;
+    return ids.map((id) => entities[id]);
+  }
+);
+
 export const selectOnTheAirCurrentPage = createSelector(
   selectSeriesState,
   (state) => state.onTheAir.currentPage

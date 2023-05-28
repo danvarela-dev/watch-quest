@@ -20,6 +20,20 @@ const routes: Routes = [
         loadChildren: () =>
           import('./modules/series/series.module').then((m) => m.SeriesModule),
       },
+      {
+        path: 'favorites',
+        loadChildren: () =>
+          import('./modules/favorites/favorites.module').then(
+            (m) => m.FavoritesModule
+          ),
+      },
+      {
+        path: 'watchlist',
+        loadChildren: () =>
+          import('./modules/watchlist/watchlist.module').then(
+            (m) => m.WatchlistModule
+          ),
+      },
     ],
   },
   {
@@ -29,6 +43,11 @@ const routes: Routes = [
       import('./modules/authentication/authentication.module').then(
         (m) => m.AuthenticationModule
       ),
+  },
+
+  {
+    path: 'cms',
+    redirectTo: 'cms/movies',
   },
   {
     path: '',

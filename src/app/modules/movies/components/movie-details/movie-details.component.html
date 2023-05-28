@@ -33,23 +33,23 @@
       >
         <div class="container">
           <div class="actor" *ngFor="let actor of movie.credits?.cast">
-            <app-circle
-              [image]="
-                actor.profile_path
-                  ? 'https://image.tmdb.org/t/p/original' + actor.profile_path
-                  : ''
-              "
-              [color]="actor.profile_path ? '' : 'blue'"
+            <a
+              [href]="'https://www.themoviedb.org/person/' + actor.id"
+              target="_blank"
             >
-            </app-circle>
-            <div class="name">
-              <a
-                [href]="'https://www.themoviedb.org/person/' + actor.id"
-                target="_blank"
+                <app-circle
+                [image]="
+                  actor.profile_path
+                    ? 'https://image.tmdb.org/t/p/original' + actor.profile_path
+                    : ''
+                "
+                [color]="actor.profile_path ? '' : 'blue'"
               >
+              </app-circle>
+              <div class="name">
                 {{ actor.name }}
-              </a>
-            </div>
+              </div>
+            </a>
             <div class="character">
               {{ actor.character }}
             </div>

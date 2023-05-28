@@ -1,0 +1,22 @@
+<div class="watchlist">
+  <div class="movies" *ngIf="watchlistMovies$ | async">
+    <div class="title">Watchlist Movies</div>
+    <app-carousel
+      [slidesPagePair]="{
+        currentSlidePage: currentWatchlistMoviesPage,
+        slides: watchlistMovies$
+      }"
+      [mediaType]="'movie'"
+    ></app-carousel>
+  </div>
+  <div class="series" *ngIf="watchlistSeries$ | async">
+    <div class="title">Watchlist Series</div>
+    <app-carousel
+      [slidesPagePair]="{
+        currentSlidePage: currentWatchlistSeriesPage,
+        slides: watchlistSeries$
+      }"
+      [mediaType]="'serie'"
+    ></app-carousel>
+  </div>
+</div>

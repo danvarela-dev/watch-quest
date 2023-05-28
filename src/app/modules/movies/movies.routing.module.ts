@@ -9,6 +9,10 @@ const routes: Routes = [
     component: MoviesDashboardComponent,
   },
   {
+    path: ':id',
+    component: MovieDetailsComponent,
+  },
+  {
     path: ':category/:id',
     component: MovieDetailsComponent,
   },

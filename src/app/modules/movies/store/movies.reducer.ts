@@ -10,6 +10,8 @@ export interface MoviesState {
   popular: { currentPage: number; movies: EntityState<MovieDetails> };
   topRated: { currentPage: number; movies: EntityState<MovieDetails> };
   upcoming: { currentPage: number; movies: EntityState<MovieDetails> };
+  favorites: { currentPage: number; movies: EntityState<MovieDetails> };
+  watchlist: { currentPage: number; movies: EntityState<MovieDetails> };
 }
 
 export const moviesAdapter = createEntityAdapter<MovieDetails>();
@@ -19,6 +21,8 @@ export const initialState: MoviesState = moviesAdapter.getInitialState({
   popular: { currentPage: 1, movies: moviesAdapter.getInitialState() },
   topRated: { currentPage: 1, movies: moviesAdapter.getInitialState() },
   upcoming: { currentPage: 1, movies: moviesAdapter.getInitialState() },
+  favorites: { currentPage: 1, movies: moviesAdapter.getInitialState() },
+  watchlist: { currentPage: 1, movies: moviesAdapter.getInitialState() },
 });
 
 export const moviesReducer = createReducer(
@@ -89,6 +93,14 @@ export const moviesReducer = createReducer(
 
     const newState = {
       ...state,
+      favorites: {
+        ...state.favorites,
+        movies: moviesAdapter.upsertMany(
+          movies as MovieDetails[],
+          state.favorites.movies
+        ),
+      },
+
       nowPlaying: {
         ...state.nowPlaying,
         movies: moviesAdapter.updateMany(changes, state.nowPlaying.movies),
@@ -183,36 +195,43 @@ export const moviesReducer = createReducer(
       },
     };
   }),
-  on(MoviesActions.loadWatchlistMoviesSuccess, (state, action) => {
-    const changes: Update<Movie>[] = action.data.movies.map((movie) => {
+  on(
+    MoviesActions.loadWatchlistMoviesSuccess,
+    (state, { data: { movies } }) => {
+      const changes: Update<Movie>[] = movies.map((movie) => {
+        return {
+          id: movie.id,
+          changes: {
+            is_watchlist: movie.is_watchlist,
+          },
+        };
+      });
+
       return {
-        id: movie.id,
-        changes: {
-          is_watchlist: movie.is_watchlist,
+        ...state,
+        watchlist: {
+          ...state.watchlist,
+          movies: moviesAdapter.upsertMany(movies, state.watchlist.movies),
+        },
+        nowPlaying: {
+          ...state.nowPlaying,
+          movies: moviesAdapter.updateMany(changes, state.nowPlaying.movies),
+        },
+        popular: {
+          ...state.popular,
+          movies: moviesAdapter.updateMany(changes, state.popular.movies),
+        },
+        topRated: {
+          ...state.topRated,
+          movies: moviesAdapter.updateMany(changes, state.topRated.movies),
+        },
+        upcoming: {
+          ...state.upcoming,
+          movies: moviesAdapter.updateMany(changes, state.upcoming.movies),
         },
       };
-    });
-
-    return {
-      ...state,
-      nowPlaying: {
-        ...state.nowPlaying,
-        movies: moviesAdapter.updateMany(changes, state.nowPlaying.movies),
-      },
-      popular: {
-        ...state.popular,
-        movies: moviesAdapter.updateMany(changes, state.popular.movies),
-      },
-      topRated: {
-        ...state.topRated,
-        movies: moviesAdapter.updateMany(changes, state.topRated.movies),
-      },
-      upcoming: {
-        ...state.upcoming,
-        movies: moviesAdapter.updateMany(changes, state.upcoming.movies),
-      },
-    };
-  }),
+    }
+  ),
   on(MoviesActions.removeFavorite, (state, action) => {
     return {
       ...state,

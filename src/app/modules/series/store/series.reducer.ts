@@ -11,6 +11,8 @@ export interface SeriesState {
   popular: { currentPage: number; series: EntityState<SeriesDetails> };
   topRated: { currentPage: number; series: EntityState<SeriesDetails> };
   airingToday: { currentPage: number; series: EntityState<SeriesDetails> };
+  favorites: { currentPage: number; series: EntityState<SeriesDetails> };
+  watchlist: { currentPage: number; series: EntityState<SeriesDetails> };
 }
 
 export const seriesAdapter = createEntityAdapter<SeriesDetails>();
@@ -20,6 +22,8 @@ export const initialState: SeriesState = seriesAdapter.getInitialState({
   popular: { currentPage: 1, series: seriesAdapter.getInitialState() },
   topRated: { currentPage: 1, series: seriesAdapter.getInitialState() },
   airingToday: { currentPage: 1, series: seriesAdapter.getInitialState() },
+  favorites: { currentPage: 1, series: seriesAdapter.getInitialState() },
+  watchlist: { currentPage: 1, series: seriesAdapter.getInitialState() },
 });
 
 export const seriesReducer = createReducer(
@@ -90,6 +94,13 @@ export const seriesReducer = createReducer(
 
     const newState = {
       ...state,
+      favorites: {
+        ...state.favorites,
+        series: seriesAdapter.upsertMany(
+          series as SeriesDetails[],
+          state.favorites.series
+        ),
+      },
       airingToday: {
         ...state.airingToday,
         series: seriesAdapter.updateMany(changes, state.airingToday.series),
@@ -110,7 +121,6 @@ export const seriesReducer = createReducer(
     return newState;
   }),
   on(SeriesActions.rateSerieSuccess, (state, { id, rating }) => {
-    console.log('rate', id, rating);
     return {
       ...state,
       airingToday: {
@@ -185,36 +195,43 @@ export const seriesReducer = createReducer(
       },
     };
   }),
-  on(SeriesActions.loadWatchlistSeriesSuccess, (state, action) => {
-    const changes: Update<Series>[] = action.data.series.map((serie) => {
+  on(
+    SeriesActions.loadWatchlistSeriesSuccess,
+    (state, { data: { series } }) => {
+      const changes: Update<Series>[] = series.map((serie) => {
+        return {
+          id: serie.id,
+          changes: {
+            is_watchlist: serie.is_watchlist,
+          },
+        };
+      });
+
       return {
-        id: serie.id,
-        changes: {
-          is_watchlist: serie.is_watchlist,
+        ...state,
+        watchlist: {
+          ...state.watchlist,
+          series: seriesAdapter.upsertMany(series, state.watchlist.series),
+        },
+        airingToday: {
+          ...state.airingToday,
+          series: seriesAdapter.updateMany(changes, state.airingToday.series),
+        },
+        popular: {
+          ...state.popular,
+          series: seriesAdapter.updateMany(changes, state.popular.series),
+        },
+        topRated: {
+          ...state.topRated,
+          series: seriesAdapter.updateMany(changes, state.topRated.series),
+        },
+        onTheAir: {
+          ...state.onTheAir,
+          series: seriesAdapter.updateMany(changes, state.onTheAir.series),
         },
       };
-    });
-
-    return {
-      ...state,
-      airingToday: {
-        ...state.airingToday,
-        series: seriesAdapter.updateMany(changes, state.airingToday.series),
-      },
-      popular: {
-        ...state.popular,
-        series: seriesAdapter.updateMany(changes, state.popular.series),
-      },
-      topRated: {
-        ...state.topRated,
-        series: seriesAdapter.updateMany(changes, state.topRated.series),
-      },
-      onTheAir: {
-        ...state.onTheAir,
-        series: seriesAdapter.updateMany(changes, state.onTheAir.series),
-      },
-    };
-  }),
+    }
+  ),
   on(SeriesActions.removeFavorite, (state, action) => {
     return {
       ...state,

@@ -1,0 +1,22 @@
+<div class="favorite">
+  <div class="movies" *ngIf="favoriteMovies$ | async">
+    <div class="title">Favorite Movies</div>
+    <app-carousel
+      [slidesPagePair]="{
+        currentSlidePage: currentFavoriteMoviesPage,
+        slides: favoriteMovies$
+      }"
+      [mediaType]="'movie'"
+    ></app-carousel>
+  </div>
+  <div class="series" *ngIf="favoriteSeries$ | async">
+    <div class="title">Favorite Series</div>
+    <app-carousel
+      [slidesPagePair]="{
+        currentSlidePage: currentFavoriteSeriesPage,
+        slides: favoriteSeries$
+      }"
+      [mediaType]="'serie'"
+    ></app-carousel>
+  </div>
+</div>

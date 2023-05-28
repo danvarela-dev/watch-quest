@@ -54,6 +54,26 @@ export const selectUpcomingMovies = createSelector(
   }
 );
 
+export const selectFavoritesMovies = createSelector(
+  selectMoviesState,
+  (state) => {
+    const { ids, entities } = state.favorites.movies;
+    return ids.map((id) => entities[id]);
+  }
+);
+
+export const selectWatchlistMovies = createSelector(
+  selectMoviesState,
+  (state) => {
+    const { ids, entities } = state.watchlist.movies;
+    return ids
+      .map((id) => entities[id])
+      .filter(
+        (movie): movie is MovieDetails => movie !== undefined || movie !== null
+      );
+  }
+);
+
 export const selectNowPlayingCurrentPage = createSelector(
   selectMoviesState,
   (state) => state.nowPlaying.currentPage
