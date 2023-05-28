@@ -111,7 +111,9 @@ export class SeriesDashboardComponent implements OnInit {
 
   addToWatchlist(watchlistRequest: WatchlistRequest): void {
     this.store.dispatch(
-      SeriesActions.addToWatchlist({ data: { request: watchlistRequest } })
+      SeriesActions.addToWatchlist({
+        data: { request: { ...watchlistRequest, media_type: 'tv' } },
+      })
     );
 
     if (!watchlistRequest.watchlist) {
@@ -123,7 +125,9 @@ export class SeriesDashboardComponent implements OnInit {
 
   addFavorite(favoriteRequest: FavoriteRequest): void {
     this.store.dispatch(
-      SeriesActions.addFavorite({ data: { request: favoriteRequest } })
+      SeriesActions.addFavorite({
+        data: { request: { ...favoriteRequest, media_type: 'tv' } },
+      })
     );
 
     if (!favoriteRequest.favorite) {

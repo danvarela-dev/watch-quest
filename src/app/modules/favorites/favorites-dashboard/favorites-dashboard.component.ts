@@ -32,10 +32,18 @@ export class FavoritesDashboardComponent implements OnInit {
   }
 
   openDetails(id: number, mediaType: string): void {
-    this.store.dispatch(
-      MoviesActions.loadMovieDetails({ id, category: 'popular' })
-    );
-    this.store.dispatch(MoviesActions.loadMovieProviders({ id }));
+    console.log(mediaType);
+    if (mediaType === 'movies') {
+      this.store.dispatch(
+        MoviesActions.loadMovieDetails({ id, category: 'popular' })
+      );
+      this.store.dispatch(MoviesActions.loadMovieProviders({ id }));
+    } else {
+      this.store.dispatch(
+        SeriesActions.loadSerieDetails({ id, category: 'popular' })
+      );
+      this.store.dispatch(SeriesActions.loadSerieProviders({ id }));
+    }
     this.router.navigate([`/cms/${mediaType}`, id]);
   }
 
@@ -54,6 +62,11 @@ export class FavoritesDashboardComponent implements OnInit {
     watchlistRequest: WatchlistRequest,
     mediaType: 'movie' | 'serie'
   ): void {
+    watchlistRequest = {
+      ...watchlistRequest,
+      media_type: mediaType === 'serie' ? 'tv' : 'movie',
+    };
+
     if (mediaType === 'movie') {
       this.store.dispatch(
         MoviesActions.addToWatchlist({ data: { request: watchlistRequest } })
@@ -81,6 +94,11 @@ export class FavoritesDashboardComponent implements OnInit {
     favoriteRequest: FavoriteRequest,
     mediaType: 'movie' | 'serie'
   ): void {
+    favoriteRequest = {
+      ...favoriteRequest,
+      media_type: mediaType === 'serie' ? 'tv' : 'movie',
+    };
+
     if (mediaType === 'movie') {
       this.store.dispatch(
         MoviesActions.addFavorite({ data: { request: favoriteRequest } })

@@ -6,7 +6,6 @@
         currentSlidePage: currentWatchlistMoviesPage,
         slides: watchlistMovies$
       }"
-      [mediaType]="'movie'"
       (onMediaSelect)="openDetails($event, 'movies')"
       (onRate)="rate($event, 'movie')"
       (onAddFavorite)="addFavorite($event, 'movie')"
@@ -20,7 +19,6 @@
         currentSlidePage: currentWatchlistSeriesPage,
         slides: watchlistSeries$
       }"
-      [mediaType]="'serie'"
       (onMediaSelect)="openDetails($event, 'series')"
       (onRate)="rate($event, 'serie')"
       (onAddFavorite)="addFavorite($event, 'serie')"

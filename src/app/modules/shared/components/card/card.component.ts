@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/no-output-on-prefix */
 import {
   Component,
   EventEmitter,
@@ -20,9 +21,7 @@ import { WatchlistRequest } from '../../interfaces/watchlist.interface';
 })
 export class CardComponent implements OnInit, OnDestroy {
   @Input() isThumbnail = true;
-  @Input('media') media$: BehaviorSubject<
-    MovieDetails | SeriesDetails | undefined
-  >;
+  @Input() media$: BehaviorSubject<MovieDetails | SeriesDetails | undefined>;
   @Input() isQueryResult = false;
   @Input() mediaType: 'movie' | 'serie' | '' = '';
   @Output() afterViewInit = new EventEmitter<void>();
@@ -48,7 +47,7 @@ export class CardComponent implements OnInit, OnDestroy {
       }
     });
 
-    if (this.router.url.includes('series') && this.mediaType === '') {
+    if (this.router.url.includes('series') && !this.isThumbnail) {
       this.mediaType = 'serie';
     } else {
       this.mediaType = 'movie';
@@ -86,7 +85,7 @@ export class CardComponent implements OnInit, OnDestroy {
     const favoriteRequest: FavoriteRequest = {
       favorite: !currentStatus,
       media_id: this.media$.value?.id || 0,
-      media_type: this.mediaType === 'serie' ? 'tv' : this.mediaType,
+      media_type: '',
     };
     this.onAddFavorite.emit(favoriteRequest);
   }
@@ -100,7 +99,7 @@ export class CardComponent implements OnInit, OnDestroy {
     const watchlistRequest: WatchlistRequest = {
       watchlist: !currentStatus,
       media_id: this.media$.value?.id || 0,
-      media_type: this.mediaType === 'serie' ? 'tv' : 'movie',
+      media_type: '',
     };
 
     this.onAddToWatchlist.emit(watchlistRequest);

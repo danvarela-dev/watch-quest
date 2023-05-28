@@ -1,7 +1,7 @@
 <div class="details" *ngIf="movie$ | async as movie">
   <div class="header">
     <app-card
-      [media]="movie$"
+      [media$]="movie$"
       [isThumbnail]="false"
       (onAddFavorite)="addFavorite($event)"
       (onRate)="rateMovie($event)"
@@ -22,10 +22,7 @@
         </div>
       </div>
     </div>
-    <div
-      class="cast"
-      *ngIf="movie.credits?.cast && movie.credits.cast.length > 10"
-    >
+    <div class="cast" *ngIf="movie.credits && movie.credits.cast.length > 10">
       <h2>Main Cast</h2>
       <div
         class="container-wrapper"
@@ -37,7 +34,7 @@
               [href]="'https://www.themoviedb.org/person/' + actor.id"
               target="_blank"
             >
-                <app-circle
+              <app-circle
                 [image]="
                   actor.profile_path
                     ? 'https://image.tmdb.org/t/p/original' + actor.profile_path

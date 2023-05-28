@@ -32,10 +32,16 @@ export class WatchlistDashboardComponent implements OnInit {
   }
 
   openDetails(id: number, mediaType: string): void {
-    this.store.dispatch(
-      MoviesActions.loadMovieDetails({ id, category: 'popular' })
-    );
-    this.store.dispatch(MoviesActions.loadMovieProviders({ id }));
+    if (mediaType === 'movie') {
+      this.store.dispatch(
+        MoviesActions.loadMovieDetails({ id, category: 'popular' })
+      );
+    } else {
+      this.store.dispatch(
+        SeriesActions.loadSerieDetails({ id, category: 'popular' })
+      );
+      this.store.dispatch(SeriesActions.loadSerieProviders({ id }));
+    }
     this.router.navigate([`/cms/${mediaType}`, id]);
   }
 
@@ -56,7 +62,9 @@ export class WatchlistDashboardComponent implements OnInit {
   ): void {
     if (mediaType === 'movie') {
       this.store.dispatch(
-        MoviesActions.addToWatchlist({ data: { request: watchlistRequest } })
+        MoviesActions.addToWatchlist({
+          data: { request: { ...watchlistRequest, media_type: 'movie' } },
+        })
       );
 
       if (!watchlistRequest.watchlist) {
@@ -66,7 +74,9 @@ export class WatchlistDashboardComponent implements OnInit {
       }
     } else {
       this.store.dispatch(
-        SeriesActions.addToWatchlist({ data: { request: watchlistRequest } })
+        SeriesActions.addToWatchlist({
+          data: { request: { ...watchlistRequest, media_type: 'tv' } },
+        })
       );
 
       if (!watchlistRequest.watchlist) {
@@ -83,7 +93,9 @@ export class WatchlistDashboardComponent implements OnInit {
   ): void {
     if (mediaType === 'movie') {
       this.store.dispatch(
-        MoviesActions.addFavorite({ data: { request: favoriteRequest } })
+        MoviesActions.addFavorite({
+          data: { request: { ...favoriteRequest, media_type: 'movie' } },
+        })
       );
 
       if (!favoriteRequest.favorite) {
@@ -93,7 +105,9 @@ export class WatchlistDashboardComponent implements OnInit {
       }
     } else {
       this.store.dispatch(
-        SeriesActions.addFavorite({ data: { request: favoriteRequest } })
+        SeriesActions.addFavorite({
+          data: { request: { ...favoriteRequest, media_type: 'tv' } },
+        })
       );
 
       if (!favoriteRequest.favorite) {

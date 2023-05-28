@@ -6,7 +6,7 @@
       <ng-container *ngFor="let slide of paginatedSlides[currentPage]">
         <app-card
           *ngIf="slide !== null"
-          [media]="convertToBehaviorSubject(slide)"
+          [media$]="convertToBehaviorSubject(slide)"
           [mediaType]="mediaType"
           (onAddFavorite)="addFavorite($event)"
           (onRate)="rateMedia($event)"

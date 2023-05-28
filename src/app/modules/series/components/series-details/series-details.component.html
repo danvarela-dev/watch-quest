@@ -1,7 +1,7 @@
 <div class="details" *ngIf="serie$ | async as serie">
   <div class="header">
     <app-card
-      [media]="serie$"
+      [media$]="serie$"
       [isThumbnail]="false"
       (onAddFavorite)="addFavorite($event)"
       (onRate)="rateMovie($event)"

@@ -7,7 +7,6 @@
           currentSlidePage: currentPopularPage,
           slides: popular$
         }"
-        [mediaType]="'serie'"
         (onAddFavorite)="addFavorite($event)"
         (onAddToWatchlist)="addToWatchlist($event)"
         (getNewSlides)="getNextPage('popular', $event)"
@@ -25,7 +24,6 @@
           currentSlidePage: currentOnTheAirPage,
           slides: onTheAir$
         }"
-        [mediaType]="'serie'"
         (onAddFavorite)="addFavorite($event)"
         (onAddToWatchlist)="addToWatchlist($event)"
         (getNewSlides)="getNextPage('nowPlaying', $event)"
@@ -43,7 +41,6 @@
           currentSlidePage: currentTopRatedPage,
           slides: topRated$
         }"
-        [mediaType]="'serie'"
         (onAddFavorite)="addFavorite($event)"
         (onAddToWatchlist)="addToWatchlist($event)"
         (getNewSlides)="getNextPage('topRated', $event)"
@@ -61,7 +58,6 @@
           currentSlidePage: currentAiringTodayPage,
           slides: airingToday$
         }"
-        [mediaType]="'serie'"
         (onAddFavorite)="addFavorite($event)"
         (onAddToWatchlist)="addToWatchlist($event)"
         (getNewSlides)="getNextPage('upcoming', $event)"

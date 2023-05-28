@@ -110,7 +110,9 @@ export class MoviesDashboardComponent implements OnInit {
 
   addToWatchlist(watchlistRequest: WatchlistRequest): void {
     this.store.dispatch(
-      MoviesActions.addToWatchlist({ data: { request: watchlistRequest } })
+      MoviesActions.addToWatchlist({
+        data: { request: { ...watchlistRequest, media_type: 'movie' } },
+      })
     );
 
     if (!watchlistRequest.watchlist) {
@@ -122,7 +124,9 @@ export class MoviesDashboardComponent implements OnInit {
 
   addFavorite(favoriteRequest: FavoriteRequest): void {
     this.store.dispatch(
-      MoviesActions.addFavorite({ data: { request: favoriteRequest } })
+      MoviesActions.addFavorite({
+        data: { request: { ...favoriteRequest, media_type: 'movie' } },
+      })
     );
 
     if (!favoriteRequest.favorite) {
